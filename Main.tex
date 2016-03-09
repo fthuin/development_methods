@@ -1,0 +1,141 @@
+\documentclass[11pt, a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{hyperref}
+\usepackage{framed}
+
+\title{LINGI2251: Assignment 1}
+\author{Florian Thuin}
+\date{\today}
+
+\begin{document}
+    \maketitle
+    \tableofcontents
+
+    \section{Requirement issues and adopted corrections}
+
+    \paragraph{Requirement 1} After the purchase of gasoline, the gas pump
+    reports the number of gallons purchased to the GSCS.\@ The GSCS updates the
+    remaining inventory.
+
+    \begin{framed}
+    \end{framed}
+
+    \paragraph{Requirement 2} After the purchase of gasoline, the gas pump
+    reports the dollar amount of the purchase to the GSCS.\@ The maximum value of
+    a purchase is \$ 999.99. The GSCS then causes the gas pump interface to
+    query the customer as to payment type.
+
+    \begin{framed}
+    \end{framed}
+
+    \paragraph{Requirement 3} The customer may choose to be billed at the time
+    of purchase, or to be sent a monthly bill. If billing is to be done at time
+    of purchase, the gas pump interface queries the customer as to whether
+    payment will be made by cash or credit card. If the purchase is to be placed
+    on a monthly bill, the gas pump interface instructs the customer to see the
+    cashier. If an invalid or no response is received, the GSCS bills at the
+    time of purchase.
+
+    \begin{framed}
+    \end{framed}
+
+    \paragraph{Requirement 4} If the customer has selected to pay at the time of
+    purchase, he or she can choose to pay by cash or credit card. If the
+    customer selects cash, the gas pump interface instructs the customer to see
+    the cashier. If the customer selects credit card, the gas pump interface
+    instructs the customer to swipe his or her credit card through the credit
+    card reader. If an invalid or no selection is made, the GSCS will default
+    to credit card payment.
+
+    \begin{framed}
+    \end{framed}
+
+    \paragraph{Requirement 5} If payment is to be made by credit card, then the
+    card reader sends the credit card number to the GSCS.\@ If the GSCS receives
+    an invalid card number, then a message is sent to the gas pump interface
+    asking the customer to swipe the card through the card reader again. After
+    the account number is obtained, the account number and purchase price are
+    sent to the credit card system, and the GSCS and gas pump interface are
+    reset to their initial state. The purchase price sent can be up to \$ 10000.
+
+    \begin{framed}
+    \end{framed}
+
+    \paragraph{Requirement 6} The cashier is responsible for accepting the
+    customer's payment and making change, if necessary. When payment is
+    complete, the cashier indicates this on the cashier's interface. The GSCS
+    and the gas pump interface then return to the initial state.
+
+    \begin{framed}
+    \end{framed}
+
+    \paragraph{Requirement 7} If payment is to be made by monthly bill, the
+    purchase price is displayed on the cashier's interface. The cashier
+    selects an option from the cashier's interface, alerting the GSCS that the
+    payment will be placed on a monthly bill. The GSCS then prompts the cashier
+    to enter the billing account number.
+
+    \begin{framed}
+    \end{framed}
+
+    \paragraph{Requirement 8} The customer must give the billing account number
+    to the cashier, who then enters it at the cashier's interface. If a valid
+    billing account number is entered, then the billing account number, purchase
+    price, and a brief description of the type of transaction is logged. If an
+    invalid billing account number is entered, an error message is displayed
+    and the cashier is prompted to enter it again. The cashier must also have
+    the option to cancel the operation, in which case the cashier's interface
+    reverts to showing the purchase price and the cashier can again either
+    receive cash or indicate that monthly billing should be used.
+
+    \begin{framed}
+    \end{framed}
+
+    \paragraph{Requirement 9} To pay a monthly bill, the customer must send
+    the payment along with the billing account number. The cashier enters
+    monthly payments by first selecting the appropriate option from the
+    cashier's interface. The GSCS then sends a message to the cashier's
+    interface. The GSCS then sends a message to the cashier's interface
+    prompting the cashier to enter the billing account number, the amount
+    remitted, and the type of payment. If any of these pieces of information
+    are not entered or are invalid, payment cannot be processed; an error
+    message will be displayed, and the cashier's interface will be returned
+    to the previous screen. If the type of payment is credit card, the credit
+    card account number must also be entered, and then the paper credit card
+    receipt will be photocopied and stored with the rest of the year's receipts.
+
+    \begin{framed}
+    \end{framed}
+
+    \paragraph{Requirement 10} Unless otherwise specified, if the GSCS receives
+    invalid input it will send an error message to the cashier's interface.
+    The cashier will be expected to take appropriate action, which may
+    involve shutting the system down for maintenance.
+
+    \begin{framed}
+    \end{framed}
+
+    \paragraph{Non-functional requirement 1} The system must always respond to
+    customer input within 5 minutes.
+
+    \paragraph{Non-functional requirement 2} The system should be easy to
+    extend, so that if necessary another payment option (e.g.\ bankcard) can be
+    added with minimal effort.
+
+    \section{Interfaces}
+    \section{State of the system}
+    \section{Data-flow diagram}
+    \section{Class diagram}
+    \section{Sequence diagrams}
+        \subsection{A customer successfully purchases gas and charges it on
+        a monthly bill}
+        \subsection{A customer purchases gas and attempts to pay by credit
+        card but his card is refused. He then pays by cash to the cashier.}
+        \subsection{The cashier successfully processes a monthly payment by
+        credit card.}
+    \section{State diagrams}
+
+\end{document}
