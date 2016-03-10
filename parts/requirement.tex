@@ -1,0 +1,247 @@
+
+\paragraph{Requirement 1} After the purchase of gasoline, the gas pump
+reports the number of gallons purchased to the GSCS.\@ The GSCS updates the
+remaining inventory.
+
+\paragraph{Requirement 2} After the purchase of gasoline, the gas pump
+reports the dollar amount of the purchase to the GSCS.\@ The maximum value of
+a purchase is $\$~999.99$. The GSCS then causes the gas pump interface to
+query the customer as to payment type.
+
+\begin{framed}
+    \paragraph{Critics} 
+    \begin{itemize}
+        \item Requirement 1 and 2 are strongly connected because the
+            amount of dollar depend of the number of gallons.
+
+            In this way, we thinks that it will only be one
+            requirement instead of two.
+
+        \item "After" is a infinite length of time and must be more
+            precise such as "Directly after".
+    \end{itemize}
+
+    \paragraph{Requirement 1 and 2} Directly after the purchase of gasoline,
+    the gas pump reports the number of gallons purchased and the
+    dollar amount of the purchase to the GSCS. The maximum value of
+    a purchase is $\$999.99$. 
+    When the GSCS receive the report, he updates the remaining
+    inventory and cause the gas pump interface to query the customer as to
+    payment type. 
+
+\end{framed}
+
+\paragraph{Requirement 3} The customer may choose to be billed at the time
+of purchase, or to be sent a monthly bill. If billing is to be done at time
+of purchase, the gas pump interface queries the customer as to whether
+payment will be made by cash or credit card. If the purchase is to be placed
+on a monthly bill, the gas pump interface instructs the customer to see the
+cashier. If an invalid or no response is received, the GSCS bills at the
+time of purchase.
+
+\begin{framed}
+    \paragraph{Critics} 
+    \begin{itemize}
+        \item There should be a time limit to says that there is no
+            response.
+        \item It's not explicit that the customer choose how to pays
+            through gas pump interface.
+    \end{itemize}
+
+    \paragraph{Requirement 3} When the gas pump interface query the
+    customer as to payment type, he may choose to be billed at the
+    time of purchase, or to be sent a monthly bill. 
+    If billing is to be done at time of purchase, the gas pump
+    interface queries the customer as to whether payment will be
+    made by cash or credit card. If the purchase is to be placed on
+    a monthly bill, the gas pump interface instructs the customer to
+    see the cashier. If an invalid response is receive or there is
+    no response during one minute, the GSCS bills at the time of purchase.
+\end{framed}
+
+\paragraph{Requirement 4} If the customer has selected to pay at the time of
+purchase, he or she can choose to pay by cash or credit card. If the
+customer selects cash, the gas pump interface instructs the customer to see
+the cashier. If the customer selects credit card, the gas pump interface
+instructs the customer to swipe his or her credit card through the credit
+card reader. If an invalid or no selection is made, the GSCS will default
+to credit card payment.
+
+\begin{framed}
+    \paragraph{Critics} 
+    \begin{itemize}
+        \item There should be a time limit to says that there is no
+            response.
+    \end{itemize}
+
+    \paragraph{Requirement 4} If the customer has selected to pay at the time of
+    purchase, he or she can choose to pay by cash or credit card. If the
+    customer selects cash, the gas pump interface instructs the customer to see
+    the cashier. If the customer selects credit card, the gas pump interface
+    instructs the customer to swipe his or her credit card through the credit
+    card reader. If an invalid selection or no selection during one
+    minute is made, the GSCS will default to credit card payment.
+\end{framed}
+
+\paragraph{Requirement 5} If payment is to be made by credit card, then the
+card reader sends the credit card number to the GSCS.\@ If the GSCS receives
+an invalid card number, then a message is sent to the gas pump interface
+asking the customer to swipe the card through the card reader again. After
+the account number is obtained, the account number and purchase price are
+sent to the credit card system, and the GSCS and gas pump interface are
+reset to their initial state. The purchase price sent can be up
+to \${}10000.
+
+\begin{framed}
+    \paragraph{Critics} 
+    \begin{itemize}
+        \item It's not complete because the requirement don't take in
+            account that potentially the card reader is not able to read
+            the card for some extern reason such as a invalid card or a
+            issues with the card reader.
+        \item It's not consistent to have a purchase price up to \$10000
+            because the requirement 2 says a upper bound to \$999.99.
+    \end{itemize}
+
+    \paragraph{Requirement 5} If payment is to be made by credit card, then the
+    card reader sends the credit card number to the GSCS.\@ If the GSCS receives
+    an invalid card number, then a message is sent to the gas pump interface
+    asking the customer to swipe the card through the card reader again.
+    If after three times the account is not obtained, the gas pump
+    interface instructs the customer to see the cashier.
+    If the account number is obtained within the three times, the
+    account number and purchase price are
+    sent to the credit card system, and the GSCS and gas pump interface are
+    reset to their initial state. The purchase price sent can be up
+    to \${}999.99.
+\end{framed}
+
+\paragraph{Requirement 6} The cashier is responsible for accepting the
+customer's payment and making change, if necessary. When payment is
+complete, the cashier indicates this on the cashier's interface. The GSCS
+and the gas pump interface then return to the initial state.
+
+\begin{framed}
+    \paragraph{Critics} 
+    \begin{itemize}
+        \item The cashier is responsible for accepting cash payment or
+            monthly billing but not credit card payment.
+    \end{itemize}
+
+    \paragraph{Requirement 6} The cashier is responsible for accepting
+    monthly billing or the
+    customer's cash payment and making change, if necessary. When payment is
+    complete, the cashier indicates this on the cashier's interface. The GSCS
+    and the gas pump interface then return to the initial state.
+\end{framed}
+
+\paragraph{Requirement 7} If payment is to be made by monthly bill, the
+purchase price is displayed on the cashier's interface. The cashier
+selects an option from the cashier's interface, alerting the GSCS that the
+payment will be placed on a monthly bill. The GSCS then prompts the cashier
+to enter the billing account number.
+
+\paragraph{Requirement 8} The customer must give the billing account number
+to the cashier, who then enters it at the cashier's interface. If a valid
+billing account number is entered, then the billing account number, purchase
+price, and a brief description of the type of transaction is logged. If an
+invalid billing account number is entered, an error message is displayed
+and the cashier is prompted to enter it again. The cashier must also have
+the option to cancel the operation, in which case the cashier's interface
+reverts to showing the purchase price and the cashier can again either
+receive cash or indicate that monthly billing should be used.
+
+\begin{framed}
+    \paragraph{Critics} 
+    \begin{itemize}
+        \item There is no sens to have two different requirement mainly
+            if the requirement 8 is more complete than the requirement
+            7. Indeed, the requirement 7 don't take in account the
+            case where the customer has no ability to perform a
+            monthly billing.
+    \end{itemize}
+
+    \paragraph{Requirement 7 and 8} If payment is to be made by monthly bill, the
+    purchase price is displayed on the cashier's interface.
+    The customer must give the billing account number
+    to the cashier, who then enters it at the cashier's interface. If a valid
+    billing account number is entered, then the billing account number, purchase
+    price, and a brief description of the type of transaction is logged. If an
+    invalid billing account number is entered, an error message is displayed
+    and the cashier is prompted to enter it again. The cashier must also have
+    the option to cancel the operation, in which case the cashier's interface
+    reverts to showing the purchase price and the cashier can again either
+    receive cash or indicate that monthly billing should be used.
+\end{framed}
+
+\paragraph{Requirement 9} To pay a monthly bill, the customer must send
+the payment along with the billing account number. The cashier enters
+monthly payments by first selecting the appropriate option from the
+cashier's interface. The GSCS then sends a message to the cashier's
+interface. The GSCS then sends a message to the cashier's interface
+prompting the cashier to enter the billing account number, the amount
+remitted, and the type of payment. If any of these pieces of information
+are not entered or are invalid, payment cannot be processed; an error
+message will be displayed, and the cashier's interface will be returned
+to the previous screen. If the type of payment is credit card, the credit
+card account number must also be entered, and then the paper credit card
+receipt will be photocopied and stored with the rest of the year's receipts.
+
+\begin{framed}
+    \paragraph{Critics} 
+    \begin{itemize}
+        \item It's ambiguous because we don't know how the customer send
+            the payment. By mail or go to the gas pomp?
+
+        \item "by selection the appropriate option" is not precise
+            enough because the appropriate option is in fact "pay a
+            monthly bill".
+
+        \item The fact that the receipt will be photocopied is
+            completely irrelevant for the system.
+    \end{itemize}
+
+    \paragraph{Requirement 9} To pay a monthly bill, the customer must send
+    the payment along with the billing account number. The cashier enters
+    monthly payments by first selecting the appropriate option from the
+    cashier's interface. The GSCS then sends a message to the cashier's
+    interface. The GSCS then sends a message to the cashier's interface
+    prompting the cashier to enter the billing account number, the amount
+    remitted, and the type of payment.
+    If the type of payment is credit card, the credit
+    card account number must also be entered.
+    If any of these pieces of information
+    are not entered or are invalid, payment cannot be processed; an error
+    message will be displayed, and the cashier's interface will be returned
+    to the previous screen. 
+    If these pieces of informations are valid, then the transaction is logged.
+\end{framed}
+
+\paragraph{Requirement 10} Unless otherwise specified, if the GSCS receives
+invalid input it will send an error message to the cashier's interface.
+The cashier will be expected to take appropriate action, which may
+involve shutting the system down for maintenance.
+
+\begin{framed}
+\end{framed}
+
+\paragraph{Non-functional requirement 1} The system must always respond to
+customer input within 5 minutes.
+
+\paragraph{Non-functional requirement 2} The system should be easy to
+extend, so that if necessary another payment option (e.g.\ bankcard) can be
+added with minimal effort.
+
+\begin{framed}
+    \paragraph{Critics} 
+    \begin{itemize}
+        \item This requirement is really ambiguous because it use some
+            ambiguous notions such as "easy" or "minimal".
+
+        \item There is a lot of another payment option such as bitcoin
+            which is not relevant for this system.
+    \end{itemize}
+\paragraph{Non-functional requirement 2} The system should be extend by
+keeping the global structure of the system, so that if necessary another
+card payment option can be added.
+\end{framed}
