@@ -38,7 +38,7 @@
   dots/.style={gray,scale=2},
   to/.style={->,>=stealth',shorten >=1pt,semithick,font=\sffamily\tiny},
   every node/.style={align=center, text width=1.2cm, font=\sffamily\scriptsize},
-  node distance = 1cm
+  node distance = 2.5cm
   ]
 
 
@@ -47,18 +47,18 @@
 
   % Place central point around GSCS
   \def\aCCS {6cm} \def\rCCS {-10cm}
-  \def\aCI  {-6cm} \def\rCI {0cm}
-  \def\aCCR {0cm} \def\rCCR {3cm}
-  \def\aCLI {2cm} \def\rCLI {10cm}
+  \def\aCI  {-8cm} \def\rCI {-2cm}
+  \def\aCCR {-2cm} \def\rCCR {7cm}
+  \def\aCLI {1cm} \def\rCLI {13cm}
   \node[source]    (ccs)    [above right= \aCCS and \rCCS of gscs] {CCS};
   \node[source]    (ci)     [above right= \aCI and \rCI of gscs]   {CI};
   \node[source]    (ccr)    [above right= \aCCR and \rCCR of gscs] {CCR};
   \node[source]    (client) [above right= \aCLI and \rCLI of gscs] {Client};
 
   % Place point dependant of central point
-  \def\rGP  {4cm}
-  \def\rGPI {5cm}
-  \def\rCA  {6cm}
+  \def\rGP  {3cm}
+  \def\rGPI {7cm}
+  \def\rCA  {8cm}
   \def\bINV {6cm} 
   \node[source]    (gp)     [right=\rGP of ccs]   {GP};
   \node[source]    (gpi)    [right= \rGPI of gp] {GPI};
@@ -69,51 +69,52 @@
 
   % CCS
   \node[process] (ccsPay) [below=of ccs] {Payment};
-  \node[process] (ccsPayOk) [below right=of ccs]{Payment approval};
+  \node[process] (ccsPayOk) [below right=1.5cm and 0.5cm of ccs]{Payment approval};
 
   % Inventory
-  \node[process] (invUpd) [above right=of inv] {Update inventory};
-  \node[process] (invUpdA) [below right=of inv] {Update approval};
+  \node[process] (invUpd) [above right=0.3cm and 1cm of inv] {Update inventory};
+  \node[process] (invUpdA) [below right=0.3cm and 2cm of inv] {Update approval};
 
   % GP
-  \node[process] (gpInfo) [below=of gp] {Send information};
+  \node[process] (gpInfo) [below=of gp] {Send info};
 
   % GPI
-  \node[process] (gpMsg) [below=of gpi] {Give msg};
-  \node[process] (gpAsk) [left=of gpi] {Ask payment type};
-  \node[process] (gpChoice) [below left=of gpi] {Reply choice};
-  \node[process] (gpReset) [below right=of gpi] {Reset state};
-  \node[process] (gpInst) [above left=of gpi] {Display inst};
-  \node[process] (gpType) [right=of gpi] {Ask payment type};
+  \node[process] (gpAsk) [below left=0.5cm and 4cm of gpi] {Ask payment type};
+  \node[process] (gpChoice) [below right=0.3cm and 0.3cm of gpAsk] {Reply choice};
+  \node[process] (gpMsg) [below right =0.3cm and 0.3cm  of gpChoice] {Give msg};
+  \node[process] (gpReset) [below right=0.3cm and 0.3cm  of gpMsg] {Reset state};
+
 
   % Client
-  \node[process] (cliInst) [above right=of client] {Display inst};
-  \node[process] (cliReport) [above left=of client] {Choose report};
-  \node[process] (cliCash) [left=of client] {Choose cash};
-  \node[process] (cliCard) [above=of client] {Choose card};
+  \node[process] (cliReport) [above right=5cm and -1.5cm of client] {Choose report};
+  \node[process] (cliCash) [below left=0.3cm and 0.3cm of cliReport] {Choose cash};
+  \node[process] (cliCard) [below left=0.3cm and 0.3cm of cliCash] {Choose card};
+
+  \node[process] (cliInst) [below left=0.3cm and 0.3cm of cliCard] {Display inst};
+  \node[process] (cliType) [below left=0.3cm and 0.3cm of cliInst] {Ask payment type};
 
   % CCR
-  \node[process] (ccrSwipe) [right=of ccr] {Swipe card};
-  \node[process] (ccrSend) [above left=of ccr] {Send card number};
-  \node[process] (ccrError) [below left=of ccr] {Send error};
+  \node[process] (ccrSwipe) [above right=0.7cm and 1cm of ccr] {Swipe card};
+  \node[process] (ccrSend) [above left= 0cm and 1.5cm of ccr] {Send \#card};
+  \node[process] (ccrError) [below left=0cm and 1.5cm of ccr] {Send error};
 
   % Cashier
   \node[process] (cashInput) [left=of cash] {Input data};
-  \node[process] (cashCancel) [above left=of cash] {Cancel operation};
-  \node[process] (cashShut) [below left=of cash] {Shut down};
+  \node[process] (cashCancel) [above=0.5cm of cashInput] {Cancel operation};
+  \node[process] (cashShut) [below=0.5cm of cashInput] {Shut down};
 
-  \node[process] (cashReport) [above right=of cash] {Report monthly};
-  \node[process] (cashCash) [right=of cash] {Pay cash};
-  \node[process] (cashChange) [below right=of cash] {Give change};
+  \node[process] (cashChange) [above right=1.5cm and 4cm of cash] {Give change};
+  \node[process] (cashReport) [above left=0.3cm and 0.3cm of cashChange] {Report monthly};
+  \node[process] (cashCash) [left=0.5cm of cashReport] {Pay cash};
 
   % CI
-  \node[process] (ciShut) [above right=of ci] {Shutting down};
-  \node[process] (ciInfo) [above=of ci]{Send payment info};
-  \node[process] (ciValidate) [above left=of ci]{Validate payment};
-  \node[process] (ciError) [left=of ci]{Send error};
-  \node[process] (ciCash) [below left=of ci]{Pay cash};
-  \node[process] (ciReport) [below=of ci]{Report monthly};
-  \node[process] (ciMonthly) [left=of ciError]{Pay monthly}; 
+  \node[process] (ciValidate) [above left=1.5cm and 2.5cm of ci]{Validate payment};
+  \node[process] (ciError)    [left=0.1cm of ciValidate]{Send error};
+  \node[process] (ciShut)     [below left=0.1cm and 0.1cm of ciError] {Shutting down};
+  \node[process] (ciInfo)     [above right=0.1cm and 0.1cm of ciValidate]{Send info};
+  \node[process] (ciCash)     [right=0.1cm of ciInfo]{Pay cash};
+  \node[process] (ciReport)   [right=0.1cm of ciCash]{Report monthly};
+  \node[process] (ciMonthly)  [above right=0.1cm and 0.1cm  of ciReport]{Pay monthly}; 
 
 
 
