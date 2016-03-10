@@ -30,39 +30,105 @@
     \begin{figure}
  \begin{tikzpicture}[
   font=\sffamily,
-  every matrix/.style={ampersand replacement=\&,column sep=2cm,row sep=2cm},
+  every matrix/.style={ampersand replacement=\&,column sep=0.5cm,row sep=0.5cm},
   source/.style={draw,thick,rounded corners,fill=yellow!20,inner sep=.3cm},
-  process/.style={draw,thick,circle,fill=blue!20},
+  process/.style={draw,thick,ellipse,fill=blue!20},
   sink/.style={source,fill=green!20},
   datastore/.style={draw,very thick,shape=datastore,inner sep=.3cm},
   dots/.style={gray,scale=2},
-  to/.style={->,>=stealth',shorten >=1pt,semithick,font=\sffamily\footnotesize},
-  every node/.style={align=center}]
+  to/.style={->,>=stealth',shorten >=1pt,semithick,font=\sffamily\tiny},
+  every node/.style={align=center, text width=1.2cm, font=\sffamily\scriptsize},
+  node distance = 1cm
+  ]
 
-  % Position the nodes using a matrix layout
-  \matrix{
-    \node[source] (hisparcbox) {electronics};
-      \& \node[process] (daq) {DAQ}; \& \\
 
-    \& \node[datastore] (buffer) {buffer}; \& \\
+  % GSCS
+  \node[sink] (gscs) {GSCS};
 
-    \node[datastore] (storage) {storage};
-      \& \node[process] (monitor) {monitor};
-      \& \node[sink] (datastore) {datastore}; \\
-  };
+  % Place central point around GSCS
+  \def\aCCS {6cm} \def\rCCS {-10cm}
+  \def\aCI  {-6cm} \def\rCI {0cm}
+  \def\aCCR {0cm} \def\rCCR {3cm}
+  \def\aCLI {2cm} \def\rCLI {10cm}
+  \node[source]    (ccs)    [above right= \aCCS and \rCCS of gscs] {CCS};
+  \node[source]    (ci)     [above right= \aCI and \rCI of gscs]   {CI};
+  \node[source]    (ccr)    [above right= \aCCR and \rCCR of gscs] {CCR};
+  \node[source]    (client) [above right= \aCLI and \rCLI of gscs] {Client};
+
+  % Place point dependant of central point
+  \def\rGP  {4cm}
+  \def\rGPI {5cm}
+  \def\rCA  {6cm}
+  \def\bINV {6cm} 
+  \node[source]    (gp)     [right=\rGP of ccs]   {GP};
+  \node[source]    (gpi)    [right= \rGPI of gp] {GPI};
+  \node[datastore] (inv)    [below = \bINV of ccs] {Inventory};
+  \node[source]    (cash)   [right= \rCA of ci]   {Cashier};
+
+
+
+  % CCS
+  \node[process] (ccsPay) [below=of ccs] {Payment};
+  \node[process] (ccsPayOk) [below right=of ccs]{Payment approval};
+
+  % Inventory
+  \node[process] (invUpd) [above right=of inv] {Update inventory};
+  \node[process] (invUpdA) [below right=of inv] {Update approval};
+
+  % GP
+  \node[process] (gpInfo) [below=of gp] {Send information};
+
+  % GPI
+  \node[process] (gpMsg) [below=of gpi] {Give msg};
+  \node[process] (gpAsk) [left=of gpi] {Ask payment type};
+  \node[process] (gpChoice) [below left=of gpi] {Reply choice};
+  \node[process] (gpReset) [below right=of gpi] {Reset state};
+  \node[process] (gpInst) [above left=of gpi] {Display inst};
+  \node[process] (gpType) [right=of gpi] {Ask payment type};
+
+  % Client
+  \node[process] (cliInst) [above right=of client] {Display inst};
+  \node[process] (cliReport) [above left=of client] {Choose report};
+  \node[process] (cliCash) [left=of client] {Choose cash};
+  \node[process] (cliCard) [above=of client] {Choose card};
+
+  % CCR
+  \node[process] (ccrSwipe) [right=of ccr] {Swipe card};
+  \node[process] (ccrSend) [above left=of ccr] {Send card number};
+  \node[process] (ccrError) [below left=of ccr] {Send error};
+
+  % Cashier
+  \node[process] (cashInput) [left=of cash] {Input data};
+  \node[process] (cashCancel) [above left=of cash] {Cancel operation};
+  \node[process] (cashShut) [below left=of cash] {Shut down};
+
+  \node[process] (cashReport) [above right=of cash] {Report monthly};
+  \node[process] (cashCash) [right=of cash] {Pay cash};
+  \node[process] (cashChange) [below right=of cash] {Give change};
+
+  % CI
+  \node[process] (ciShut) [above right=of ci] {Shutting down};
+  \node[process] (ciInfo) [above=of ci]{Send payment info};
+  \node[process] (ciValidate) [above left=of ci]{Validate payment};
+  \node[process] (ciError) [left=of ci]{Send error};
+  \node[process] (ciCash) [below left=of ci]{Pay cash};
+  \node[process] (ciReport) [below=of ci]{Report monthly};
+  \node[process] (ciMonthly) [left=of ciError]{Pay monthly}; 
+
+
 
   % Draw the arrows between the nodes and label them.
-  \draw[to] (hisparcbox) -- node[midway,above] {raw events}
-      node[midway,below] {level 0} (daq);
-  \draw[to] (daq) -- node[midway,right] {raw event data\\level 1} (buffer);
-  \draw[to] (buffer) --
-      node[midway,right] {raw event data\\level 1} (monitor);
-  \draw[to] (monitor) to[bend right=50] node[midway,above] {events}
-      node[midway,below] {level 1} (storage);
-  \draw[to] (storage) to[bend right=50] node[midway,above] {events}
-      node[midway,below] {level 1} (monitor);
-  \draw[to] (monitor) -- node[midway,above] {events}
-  node[midway,below] {level 1} (datastore);
+%  \draw[to] (hisparcbox) -- node[midway,above] {raw events}
+%      node[midway,below] {level 0} (daq);
+%  \draw[to] (daq) -- node[midway,right] {raw event data\\level 1} (buffer);
+%  \draw[to] (buffer) --
+%      node[midway,right] {raw event data\\level 1} (monitor);
+%  \draw[to] (monitor) to[bend right=50] node[midway,above] {events}
+%      node[midway,below] {level 1} (storage);
+%  \draw[to] (storage) to[bend right=50] node[midway,above] {events}
+%      node[midway,below] {level 1} (monitor);
+%  \draw[to] (monitor) -- node[midway,above] {events}
+%  node[midway,below] {level 1} (datastore);
 \end{tikzpicture}
 \caption{Data-flow diagram}
 \label{fig:data-flow}
