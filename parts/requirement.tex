@@ -9,26 +9,25 @@ a purchase is $\$~999.99$. The GSCS then causes the gas pump interface to
 query the customer as to payment type.
 
 \begin{framed}
-    \paragraph{Critics} 
+    \paragraph{Critics}
     \begin{itemize}
         \item Requirement 1 and 2 are strongly connected because the
-            amount of dollar depend of the number of gallons.
+            amount of dollars depends on the number of gallons.
 
-            In this way, we thinks that it will only be one
+            In this way, we think that it should only be one
             requirement instead of two.
 
-        \item "After" is a infinite length of time and must be more
-            precise such as "Directly after".
+        \item \enquote{After} is a infinite length of time and must be more
+            precise such as \enquote{Immediatly after}.
     \end{itemize}
 
-    \paragraph{Requirement 1 and 2} Directly after the purchase of gasoline,
-    the gas pump reports the number of gallons purchased and the
-    dollar amount of the purchase to the GSCS. The maximum value of
-    a purchase is $\$999.99$. 
-    When the GSCS receive the report, he updates the remaining
-    inventory and cause the gas pump interface to query the customer as to
-    payment type. 
-
+    \paragraph{Requirement 1 and 2 corrected} Immediatly after the purchase of
+    gasoline, the gas pump reports the number of gallons purchased and the
+    amount of dollars of the purchase to the GSCS.\@ The maximum value of
+    a purchase is $\$999.99$.
+    When the GSCS receives the report, he updates the remaining
+    inventory and causes the gas pump interface to query the customer as to
+    payment type.
 \end{framed}
 
 \paragraph{Requirement 3} The customer may choose to be billed at the time
@@ -40,7 +39,7 @@ cashier. If an invalid or no response is received, the GSCS bills at the
 time of purchase.
 
 \begin{framed}
-    \paragraph{Critics} 
+    \paragraph{Critics}
     \begin{itemize}
         \item There should be a time limit to says that there is no
             response.
@@ -48,14 +47,14 @@ time of purchase.
             through gas pump interface.
     \end{itemize}
 
-    \paragraph{Requirement 3} When the gas pump interface query the
+    \paragraph{Requirement 3 corrected} When the gas pump interface queries the
     customer as to payment type, he may choose to be billed at the
-    time of purchase, or to be sent a monthly bill. 
+    time of purchase, or to be sent a monthly bill.
     If billing is to be done at time of purchase, the gas pump
     interface queries the customer as to whether payment will be
     made by cash or credit card. If the purchase is to be placed on
     a monthly bill, the gas pump interface instructs the customer to
-    see the cashier. If an invalid response is receive or there is
+    see the cashier. If an invalid response is received or there is
     no response during one minute, the GSCS bills at the time of purchase.
 \end{framed}
 
@@ -68,13 +67,13 @@ card reader. If an invalid or no selection is made, the GSCS will default
 to credit card payment.
 
 \begin{framed}
-    \paragraph{Critics} 
+    \paragraph{Critics}
     \begin{itemize}
         \item There should be a time limit to says that there is no
             response.
     \end{itemize}
 
-    \paragraph{Requirement 4} If the customer has selected to pay at the time of
+    \paragraph{Requirement 4 corrected} If the customer has selected to pay at the time of
     purchase, he or she can choose to pay by cash or credit card. If the
     customer selects cash, the gas pump interface instructs the customer to see
     the cashier. If the customer selects credit card, the gas pump interface
@@ -93,27 +92,34 @@ reset to their initial state. The purchase price sent can be up
 to \${}10000.
 
 \begin{framed}
-    \paragraph{Critics} 
+    \paragraph{Critics}
     \begin{itemize}
-        \item It's not complete because the requirement don't take in
+        \item It's not complete because the requirement don't take into
             account that potentially the card reader is not able to read
-            the card for some extern reason such as a invalid card or a
-            issues with the card reader.
+            the card for some external reasons such as a invalid card or an
+            issue with the card reader.
         \item It's not consistent to have a purchase price up to \$10000
-            because the requirement 2 says a upper bound to \$999.99.
+            because the requirement 2 defines an upper bound to \$999.99.
+        \item It's not consistent with the given definition of the credit card
+            reader that says that it \enquote{reads the credit card number and
+            sends it to the GSCS}. We will suppose that, as the GSCS already
+            know the purchase price, the credit card reader sends only the
+            credit card account number to the GSCS and the GSCS forwards the
+            purchase amount and the credit card account number to the credit
+            card system.
     \end{itemize}
 
-    \paragraph{Requirement 5} If payment is to be made by credit card, then the
+    \paragraph{Requirement 5 corrected} If payment is to be made by credit card, then the
     card reader sends the credit card number to the GSCS.\@ If the GSCS receives
     an invalid card number, then a message is sent to the gas pump interface
     asking the customer to swipe the card through the card reader again.
     If after three times the account is not obtained, the gas pump
     interface instructs the customer to see the cashier.
     If the account number is obtained within the three times, the
-    account number and purchase price are
-    sent to the credit card system, and the GSCS and gas pump interface are
-    reset to their initial state. The purchase price sent can be up
-    to \${}999.99.
+    credit card account number is sent to the GSCS.\@ The GSCS then sends the
+    credit card account number and the purchase price (up to \$999.99) to the
+    credit card system and cause the gas pump interface to
+    reset to its initial state.
 \end{framed}
 
 \paragraph{Requirement 6} The cashier is responsible for accepting the
@@ -122,17 +128,21 @@ complete, the cashier indicates this on the cashier's interface. The GSCS
 and the gas pump interface then return to the initial state.
 
 \begin{framed}
-    \paragraph{Critics} 
+    \paragraph{Critics}
     \begin{itemize}
         \item The cashier is responsible for accepting cash payment or
             monthly billing but not credit card payment.
+        \item The GSCS should not return to its initial state just because one
+        payment is completed, if there are multiple gas pumps for example, we
+        don't want the GSCS to skip other actions.
     \end{itemize}
 
-    \paragraph{Requirement 6} The cashier is responsible for accepting
+    \paragraph{Requirement 6 corrected} The cashier is responsible for accepting
     monthly billing or the
     customer's cash payment and making change, if necessary. When payment is
-    complete, the cashier indicates this on the cashier's interface. The GSCS
-    and the gas pump interface then return to the initial state.
+    complete, the cashier indicates this on the cashier's interface that
+    forwards it to the GSCS.\@ The gas
+    pump interface then returns to the initial state.
 \end{framed}
 
 \paragraph{Requirement 7} If payment is to be made by monthly bill, the
@@ -152,23 +162,27 @@ reverts to showing the purchase price and the cashier can again either
 receive cash or indicate that monthly billing should be used.
 
 \begin{framed}
-    \paragraph{Critics} 
+    \paragraph{Critics}
     \begin{itemize}
         \item There is no sens to have two different requirement mainly
             if the requirement 8 is more complete than the requirement
             7. Indeed, the requirement 7 don't take in account the
             case where the customer has no ability to perform a
             monthly billing.
+        \item There is no miracle in the display of the purchase price on the
+        cashier's interface, it should be stated that it is sends by the GSCS.\@
     \end{itemize}
 
-    \paragraph{Requirement 7 and 8} If payment is to be made by monthly bill, the
-    purchase price is displayed on the cashier's interface.
+    \paragraph{Requirement 7 and 8 corrected} If payment is to be made by monthly bill as
+    chosen by the customer, the GSCS sends the
+    purchase price to the cashier's interface that displays it to the cashier.
     The customer must give the billing account number
     to the cashier, who then enters it at the cashier's interface. If a valid
-    billing account number is entered, then the billing account number, purchase
-    price, and a brief description of the type of transaction is logged. If an
-    invalid billing account number is entered, an error message is displayed
-    and the cashier is prompted to enter it again. The cashier must also have
+    billing account number is entered, then the GSCS logs the billing account number, purchase
+    price, and a brief description of the type of transaction. If an
+    invalid billing account number is entered, the GSCS sends an error message
+    that will be displayed on the cashier's interface, causing the cashier to
+    enter the cashier to enter the billing account number again. The cashier must also have
     the option to cancel the operation, in which case the cashier's interface
     reverts to showing the purchase price and the cashier can again either
     receive cash or indicate that monthly billing should be used.
@@ -188,33 +202,31 @@ card account number must also be entered, and then the paper credit card
 receipt will be photocopied and stored with the rest of the year's receipts.
 
 \begin{framed}
-    \paragraph{Critics} 
+    \paragraph{Critics}
     \begin{itemize}
         \item It's ambiguous because we don't know how the customer send
-            the payment. By mail or go to the gas pomp?
+            the payment. By mail or go to the gas pump? The definition of the
+            cashier says it only accept cash payment, there is no credit card
+            related hardware inside the cashier's interface.
 
-        \item "by selection the appropriate option" is not precise
-            enough because the appropriate option is in fact "pay a
-            monthly bill".
+        \item \enquote{by selecting the appropriate option} is not precise
+            enough because there is only one appropriate option that
+            \enquote{pay a monthly bill}.
 
         \item The fact that the receipt will be photocopied is
-            completely irrelevant for the system.
+            completely irrelevant for the requirements of the system.
     \end{itemize}
 
-    \paragraph{Requirement 9} To pay a monthly bill, the customer must send
-    the payment along with the billing account number. The cashier enters
-    monthly payments by first selecting the appropriate option from the
-    cashier's interface. The GSCS then sends a message to the cashier's
-    interface. The GSCS then sends a message to the cashier's interface
+    \paragraph{Requirement 9 corrected} To pay a monthly bill, the customer must send
+    a cash payment along with the billing account number. The cashier selects
+    the monthly payment option from the
+    cashier's interface. The GSCS then sends a message to the cashier's interface
     prompting the cashier to enter the billing account number, the amount
-    remitted, and the type of payment.
-    If the type of payment is credit card, the credit
-    card account number must also be entered.
-    If any of these pieces of information
+    remitted, and the type of payment. If any of these pieces of information
     are not entered or are invalid, payment cannot be processed; an error
     message will be displayed, and the cashier's interface will be returned
-    to the previous screen. 
-    If these pieces of informations are valid, then the transaction is logged.
+    to the previous screen. If these pieces of informations are valid, then the
+    transaction is logged in the GSCS.\@
 \end{framed}
 
 \paragraph{Requirement 10} Unless otherwise specified, if the GSCS receives
@@ -223,6 +235,22 @@ The cashier will be expected to take appropriate action, which may
 involve shutting the system down for maintenance.
 
 \begin{framed}
+    \begin{itemize}
+        \item This requirement shows that the system isn't well specified
+        because it assumes that it doesn't handle every situation. If the GSCS
+        is able to send an error message to the cashier's interface, it means
+        that the system will handle the error in some way, which means that
+        is could be possible to specify explicitly the error and maybe to
+        handle it otherwise.
+        \item There is another problem: the cashier's definition doesnt' involve
+        shutting down the system, if he can do that it should be stated that he
+        can also start the system.
+    \end{itemize}
+
+    \paragraph{Requirement 10 corrected} Unless otherwise specified, if the GSCS
+    receives an invalid input, it will send an error message to the cashier's
+    interface. The cashier will be expected to take appropriate action, which
+    may involve system maintenance.
 \end{framed}
 
 \paragraph{Non-functional requirement 1} The system must always respond to
@@ -233,15 +261,15 @@ extend, so that if necessary another payment option (e.g.\ bankcard) can be
 added with minimal effort.
 
 \begin{framed}
-    \paragraph{Critics} 
+    \paragraph{Critics}
     \begin{itemize}
         \item This requirement is really ambiguous because it use some
-            ambiguous notions such as "easy" or "minimal".
+            ambiguous notions such as \enquote{easy} or \enquote{minimal}.
 
-        \item There is a lot of another payment option such as bitcoin
-            which is not relevant for this system.
+        \item There is a lot of other payment options such as bitcoin
+            which are not relevant for this system.
     \end{itemize}
-\paragraph{Non-functional requirement 2} The system should be extend by
-keeping the global structure of the system, so that if necessary another
-card payment option can be added.
+\paragraph{Non-functional requirement 2 corrected} Extensions such as adding
+bankcard payment could be possible without modifying the existing structure of
+the system.
 \end{framed}
