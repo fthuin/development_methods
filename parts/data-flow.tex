@@ -53,13 +53,13 @@
   \node[source]    (ccs)    [above right= \aCCS and \rCCS of gscs] {CCS};
   \node[source]    (ci)     [above right= \aCI and \rCI of gscs]   {CI};
   \node[source]    (ccr)    [above right= \aCCR and \rCCR of gscs] {CCR};
-  \node[source]    (client) [above right= \aCLI and \rCLI of gscs] {Client};
+  \node[source]    (client) [above right= \aCLI and \rCLI of gscs] {Customer};
 
   % Place point dependant of central point
   \def\rGP  {3cm}
   \def\rGPI {7cm}
   \def\rCA  {8cm}
-  \def\bINV {6cm} 
+  \def\bINV {6cm}
   \node[source]    (gp)     [right=\rGP of ccs]   {GP};
   \node[source]    (gpi)    [right= \rGPI of gp] {GPI};
   \node[datastore] (inv)    [below = \bINV of ccs] {Inventory};
@@ -114,7 +114,7 @@
   \node[process] (ciInfo)     [above right=0.1cm and 0.1cm of ciValidate]{Send info};
   \node[process] (ciCash)     [right=0.1cm of ciInfo]{Pay cash};
   \node[process] (ciReport)   [right=0.1cm of ciCash]{Report monthly};
-  \node[process] (ciMonthly)  [above right=0.1cm and 0.1cm  of ciReport]{Pay monthly}; 
+  \node[process] (ciMonthly)  [above right=0.1cm and 0.1cm  of ciReport]{Pay monthly};
 
 
 

@@ -130,6 +130,7 @@ and the gas pump interface then return to the initial state.
 \begin{framed}
     \paragraph{Critics}
     \begin{itemize}
+        \item It is not stated how the cashier knows the amount for the payment.
         \item The cashier is responsible for accepting cash payment or
             monthly billing but not credit card payment.
         \item The GSCS should not return to its initial state just because one
@@ -137,8 +138,10 @@ and the gas pump interface then return to the initial state.
         don't want the GSCS to skip other actions.
     \end{itemize}
 
-    \paragraph{Requirement 6 corrected} The cashier is responsible for accepting
-    monthly billing or the
+    \paragraph{Requirement 6 corrected} If the customer's choice is cash payment
+    or monthly billing, the GSCS sends the purchase amount to the cashier's
+    interface to display it for the cashier. The cashier is responsible for
+    accepting monthly billing or the
     customer's cash payment and making change, if necessary. When payment is
     complete, the cashier indicates this on the cashier's interface that
     forwards it to the GSCS.\@ The gas
@@ -171,6 +174,8 @@ receive cash or indicate that monthly billing should be used.
             monthly billing.
         \item There is no miracle in the display of the purchase price on the
         cashier's interface, it should be stated that it is sends by the GSCS.\@
+        \item \enquote{A brief description of the type of transaction} isn't
+        well defined, but we can't really correct it here.
     \end{itemize}
 
     \paragraph{Requirement 7 and 8 corrected} If payment is to be made by monthly bill as
