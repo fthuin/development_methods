@@ -1,0 +1,4 @@
+- Il faut modifier les requirements pour qu'on accède le credit card payment comme méthode de paiement pour les monthly bills (+dataflow+class diagram).
+- Il faut modifier les diagrammes de séquence pour reset() la gas pump interface une fois que le paiement est terminé
+- Il faut faire le dernier diagramme de séquence
+- Il faut faire le state diagram du cashier
