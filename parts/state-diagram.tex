@@ -44,6 +44,7 @@
 
 \subsection{Cashier interface}
 
+\newgeometry{left=1cm}
 \begin{figure}[!h]
     \begin{tikzpicture}[
             process/.style={draw,thick,ellipse,draw, minimum height=0.5cm, ellipse, fill=yellow!20},
@@ -62,41 +63,55 @@
   \node[process] (payment) [below right= of reg] {Pay purchase};
 
   \node[process] (report) [below right=of price] {Report purchase};
-  \node[process] (check) [below right=2cm and 1cm of report] {Check nbr};
+  \node[process] (check) [below =of report] {Check nbr};
 
-  \node[process] (card) [below right=2cm and 0cm of payment] {Pay by card};
-  \node[process] (cash) [below left=2cm and 0cm of payment] {Pay by cash};
-  \node[process] (wait) [below=of card] {Wait payment};
-  \node[process] (change) [below=of cash] {Wait change};
+  \node[process] (card) [below right=2cm and 0cm of payment] {Wait card payment};
+  \node[process] (cash) [below left=2cm and 0cm of payment] {Wait cash change};
 
-  \node[process] (complete) [below left=2cm and 3cm of wait] {Payment complete};
+  \node[process] (complete) [below left=2cm and 3cm of card] {Payment complete};
 
   \draw[to] (start) edge[bend left] (purchase);
 
   \draw[to] (purchase) edge[bend left] node[above right] {?choose option} (price);
-  \draw[to] (purchase) edge[bend left] node[right] {?choose option} (monthly);
 
-  \draw[to] (monthly) edge[bend left] node[right] {?register number} (reg);
+  \draw[to] (monthly) edge[bend right] node[left] {cancel} (purchase.345);
+  \draw[to] (price) edge[] node[below] {cancel}   (purchase.0);
+
+  \draw[to] (purchase) edge[bend right] node[] {?choose option} (monthly);
+
+  \draw[to] (monthly) edge[bend right] node[left] {?register number} (reg);
 
   \draw[to] (reg) edge[] node[below left] {[~error]} (payment);
-  \draw[to] (reg) edge[bend left] node[below left] {[error]} (monthly);
+  \draw[to] (reg) edge[bend right] node[right] {[error]} (monthly);
   \draw[to] (price) edge[bend left] node[right] {?choose gp} (payment);
 
   \draw[to] (payment) edge[bend right] node[left] {?choose cash} (cash);
   \draw[to] (payment) edge[bend left] node[right] {?choose card} (card);
   
-  \draw[to] (cash) edge[] node[left] {} (change);
-  \draw[to] (card) edge[] node[right] {} (wait);
-
-  \draw[to] (change) edge[bend left] node[left] {} (complete);
-  \draw[to] (wait) edge[bend left] node[right] {?paiement done} (complete);
+  \draw[to] (cash) edge[bend left] node[left] {} (complete);
+  \draw[to] (card) edge[bend left] node[right] {?paiement done} (complete);
 
   \draw[to] (price) edge[bend left] node[right] {?choose gp} (report);
-  \draw[to] (report) edge[bend right] node[left] {?register number}
-  (check);
-  \draw[to] (check) edge[bend right, in=-120, out=-60] node[above right] {[error] !report gp on register} (purchase);
+  \draw[to] (report) edge[bend left] node[right] {cancel} (price);
+
+  \draw[to] (report) edge[bend right] node[left] {?register number} (check);
+  \draw[to] (check) edge[bend right] node[left] {[error]} (report);
+  \draw[to] (check) edge[bend right, in=-100, out=-140, looseness=1.3] node[above] {[~error] !report gp on register} (purchase);
+
+
+  \draw[to] (complete) edge[bend left] node[below right]
+  {\begin{tabular}{c}[pay monthly] \\!pay register\end{tabular}}
+      (purchase.230);
+      \draw[to] (complete) edge[bend left] node[above left]
+  {\begin{tabular}{c}[pay purchase]\\ !pay gp\end{tabular}}
+      (purchase.190);
+
+
+  \draw[to] (payment) edge[bend left] node[below right] {cancel} (price);
+  \draw[to] (payment) edge[bend right, out=-20] node[below left] {cancel} (monthly);
 
 \end{tikzpicture}
 \caption{State diagram of cashier interface}
 \label{fig:state-ci}
 \end{figure}
+\restoregeometry{}
