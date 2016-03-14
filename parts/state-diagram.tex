@@ -90,7 +90,7 @@
 
   \draw[to] (card) edge[bend left] node[right] {[error]} (payment);
   
-  \draw[to] (cash) edge[bend left] node[left] {} (complete);
+  \draw[to] (cash) edge[bend left] node[left] {!give change} (complete);
   \draw[to] (card) edge[bend left] node[right] {?paiement done} (complete);
 
   \draw[to] (price) edge[bend left] node[right] {?choose gp} (report);
