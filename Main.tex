@@ -12,7 +12,7 @@
 \usepackage{csquotes}
 
 \title{LINGI2251: Assignment 1}
-\author{Florian Thuin}
+\author{Florian Thuin and Nicolas Houtain}
 \date{\today}
 
 \begin{document}
@@ -23,22 +23,24 @@
 \input{parts/requirement}
 
 \section{Interfaces}
+\input{parts/interfaces.tex}
+
 \section{State of the system}
+\input{parts/state.tex}
+
+
 \section{Data-flow diagram}
-\input{parts/data-flow-explication}
-\newgeometry{left=1cm, top=1cm}
 \input{parts/data-flow}
-\restoregeometry{}
 
 
 \section{Class diagram}
+\input{parts/class-diagram}
+
+
 \section{Sequence diagrams}
-\subsection{A customer successfully purchases gas and charges it on
-a monthly bill}
-\subsection{A customer purchases gas and attempts to pay by credit
-card but his card is refused. He then pays by cash to the cashier.}
-\subsection{The cashier successfully processes a monthly payment by
-credit card.}
+\input{parts/sequence-diagram}
+
+
 \section{State diagrams}
 \input{parts/state-diagram}
 
