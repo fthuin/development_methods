@@ -19,7 +19,7 @@
   \node[process] (paiment) [left=of choose] {Wait payment};
   \node[process] (msg) [below left=of paiment] {Receive msg};
 
-  \draw[to] (purchase) edge[bend left] node[midway, above] {?payment\_options} (finish);
+  \draw[to] (purchase) edge[bend right] node[midway, above right] {?payment\_options} (finish);
   \draw[to] (finish) edge[bend left] node[midway, above] {!display\_options} (display);
 
   \draw[to] (display) edge[bend left] node[midway, above right] {[choice made] ?user\_choice} (done);
@@ -54,7 +54,47 @@
 
 
   \node (start) {$\bullet$};
-  \node[process, fill=red!20] (menu) [above left=0.5cm and 0.5cm of start] {Display menu};
+  \node[process, fill=red!20] (purchase) [below right=0.5cm and 0.5cm of start] {Display menu};
+
+  \node[process] (monthly) [below right=2cm and 0cm of purchase] {Pay monthly bill};
+  \node[process] (price) [right=1.5cm of monthly] {Display purchase};
+  \node[process] (reg) [below= of monthly] {Check nbr};
+  \node[process] (payment) [below right= of reg] {Pay purchase};
+
+  \node[process] (report) [below right=of price] {Report purchase};
+  \node[process] (check) [below right=2cm and 1cm of report] {Check nbr};
+
+  \node[process] (card) [below right=2cm and 0cm of payment] {Pay by card};
+  \node[process] (cash) [below left=2cm and 0cm of payment] {Pay by cash};
+  \node[process] (wait) [below=of card] {Wait payment};
+  \node[process] (change) [below=of cash] {Wait change};
+
+  \node[process] (complete) [below left=2cm and 3cm of wait] {Payment complete};
+
+  \draw[to] (start) edge[bend left] (purchase);
+
+  \draw[to] (purchase) edge[bend left] node[above right] {?choose option} (price);
+  \draw[to] (purchase) edge[bend left] node[right] {?choose option} (monthly);
+
+  \draw[to] (monthly) edge[bend left] node[right] {?register number} (reg);
+
+  \draw[to] (reg) edge[] node[below left] {[~error]} (payment);
+  \draw[to] (reg) edge[bend left] node[below left] {[error]} (monthly);
+  \draw[to] (price) edge[bend left] node[right] {?choose gp} (payment);
+
+  \draw[to] (payment) edge[bend right] node[left] {?choose cash} (cash);
+  \draw[to] (payment) edge[bend left] node[right] {?choose card} (card);
+  
+  \draw[to] (cash) edge[] node[left] {} (change);
+  \draw[to] (card) edge[] node[right] {} (wait);
+
+  \draw[to] (change) edge[bend left] node[left] {} (complete);
+  \draw[to] (wait) edge[bend left] node[right] {?paiement done} (complete);
+
+  \draw[to] (price) edge[bend left] node[right] {?choose gp} (report);
+  \draw[to] (report) edge[bend right] node[left] {?register number}
+  (check);
+  \draw[to] (check) edge[bend right, in=-120, out=-60] node[above right] {[error] !report gp on register} (purchase);
 
 \end{tikzpicture}
 \caption{State diagram of cashier interface}
