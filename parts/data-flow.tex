@@ -36,8 +36,9 @@
   sink/.style={source,fill=blue!20},
   datastore/.style={draw,very thick,shape=datastore,inner sep=.3cm},
   dots/.style={gray,scale=2},
-  to/.style={->,>=stealth',shorten >=1pt,semithick,font=\sffamily\tiny},
-  every node/.style={align=center, text width=1.2cm, font=\sffamily\scriptsize},
+  from/.style={->,>=stealth',shorten >=1pt,semithick,font=\sffamily\tiny},
+  to/.style={<-,>=stealth',shorten >=1pt,semithick,font=\sffamily\tiny},
+  every node/.style={align=center, text width=1.2cm, scale=0.8, font=\sffamily\tiny},
   node distance = 2.5cm
   ]
 
@@ -47,8 +48,8 @@
 
   % Place central point around GSCS
   \def\aCCS {6cm} \def\rCCS {-10cm}
-  \def\aCI  {-8cm} \def\rCI {-2cm}
-  \def\aCCR {-2cm} \def\rCCR {7cm}
+  \def\aCI  {-8cm} \def\rCI {-0cm}
+  \def\aCCR {-1cm} \def\rCCR {7cm}
   \def\aCLI {1cm} \def\rCLI {13cm}
   \node[source]    (ccs)    [above right= \aCCS and \rCCS of gscs] {CCS};
   \node[source]    (ci)     [above right= \aCI and \rCI of gscs]   {CI};
@@ -59,39 +60,43 @@
   \def\rGP  {3cm}
   \def\rGPI {7cm}
   \def\rCA  {8cm}
-  \def\bINV {6cm}
+  \def\bINV {5.5cm}
+  \def\bREG {1cm}
   \node[source]    (gp)     [right=\rGP of ccs]   {GP};
-  \node[source]    (gpi)    [right= \rGPI of gp] {GPI};
+  \node[source]    (gpi)    [below right= 0.5cm and  \rGPI of gp] {GPI};
   \node[datastore] (inv)    [below = \bINV of ccs] {Inventory};
+  \node[datastore] (reg)    [below = \bREG of inv] {Registers};
   \node[source]    (cash)   [right= \rCA of ci]   {Cashier};
 
 
 
   % CCS
   \node[process] (ccsPay) [below=of ccs] {Payment};
-  \node[process] (ccsPayOk) [below right=1.5cm and 0.5cm of ccs]{Payment approval};
+  \node[process] (ccsPayOk) [below right=1.5cm and 0.5cm of ccs]{Repayment};
 
   % Inventory
-  \node[process] (invUpd) [above right=0.3cm and 1cm of inv] {Update inventory};
-  \node[process] (invUpdA) [below right=0.3cm and 2cm of inv] {Update approval};
+  \node[process] (invUpd) [right= 1cm of inv] {Update inventory};
+  
+  % Registers
+  \node[process] (regUpd) [right= 1cm of reg] {CRUD};
 
   % GP
-  \node[process] (gpInfo) [below=of gp] {Send info};
+  \node[process] (gpInfo) [below=1cm of gp] {Send purchase info};
 
   % GPI
-  \node[process] (gpAsk) [below left=0.5cm and 4cm of gpi] {Ask payment type};
-  \node[process] (gpChoice) [below right=0.3cm and 0.3cm of gpAsk] {Reply choice};
-  \node[process] (gpMsg) [below right =0.3cm and 0.3cm  of gpChoice] {Give msg};
-  \node[process] (gpReset) [below right=0.3cm and 0.3cm  of gpMsg] {Reset state};
+  \node[process] (gpiAsk) [below left=0.5cm and 4cm of gpi] {Ask payment type};
+  \node[process] (gpiChoice) [below right=0.3cm and 0.3cm of gpiAsk] {Reply choice};
+  \node[process] (gpiMsg) [below right =0.3cm and 0.3cm  of gpiChoice] {Send msg};
+  \node[process] (gpiReset) [below right=0.3cm and 0.3cm  of gpiMsg] {Reset};
+
 
 
   % Client
-  \node[process] (cliReport) [above right=5cm and -1.5cm of client] {Choose report};
-  \node[process] (cliCash) [below left=0.3cm and 0.3cm of cliReport] {Choose cash};
-  \node[process] (cliCard) [below left=0.3cm and 0.3cm of cliCash] {Choose card};
-
-  \node[process] (cliInst) [below left=0.3cm and 0.3cm of cliCard] {Display inst};
+  \node[process] (cliOption) [above right=3cm and -4.0cm of client] {Choose option};
+  \node[process] (cliInst) [below left=0.3cm and 0.3cm of cliOption] {Display msg};
   \node[process] (cliType) [below left=0.3cm and 0.3cm of cliInst] {Ask payment type};
+
+  \node[process] (cliPur) [above right=1cm and 1cm of cliOption] {Purchase gas};
 
   % CCR
   \node[process] (ccrSwipe) [above right=0.7cm and 1cm of ccr] {Swipe card};
@@ -99,37 +104,127 @@
   \node[process] (ccrError) [below left=0cm and 1.5cm of ccr] {Send error};
 
   % Cashier
+  \node[process] (cashMaint) [below =1.0cm of ccrError] {Do maintenance};
+
   \node[process] (cashInput) [left=of cash] {Input data};
   \node[process] (cashCancel) [above=0.5cm of cashInput] {Cancel operation};
   \node[process] (cashShut) [below=0.5cm of cashInput] {Shut down};
+  \node[process] (cashInst) [below=0.5cm of cashShut] {Display info};
 
-  \node[process] (cashChange) [above right=1.5cm and 4cm of cash] {Give change};
+  \node[process] (cashChange) [above right=0.5cm and 3cm of cash] {Give change};
   \node[process] (cashReport) [above left=0.3cm and 0.3cm of cashChange] {Report monthly};
-  \node[process] (cashCash) [left=0.5cm of cashReport] {Pay cash};
+  \node[process] (cashCash) [above left= 0.3cm and 0.3cm of cashReport] {Pay purchase};
+  \node[process] (cashMont) [above left= 0.3cm and 0.3cm of cashCash] {Pay monthly};
+  \node[process] (cashReg) [above left= 0.3cm and 0.3cm of cashMont] {Register};
 
   % CI
-  \node[process] (ciValidate) [above left=1.5cm and 2.5cm of ci]{Validate payment};
-  \node[process] (ciError)    [left=0.1cm of ciValidate]{Send error};
-  \node[process] (ciShut)     [below left=0.1cm and 0.1cm of ciError] {Shutting down};
-  \node[process] (ciInfo)     [above right=0.1cm and 0.1cm of ciValidate]{Send info};
-  \node[process] (ciCash)     [right=0.1cm of ciInfo]{Pay cash};
-  \node[process] (ciReport)   [right=0.1cm of ciCash]{Report monthly};
-  \node[process] (ciMonthly)  [above right=0.1cm and 0.1cm  of ciReport]{Pay monthly};
+  \node[process] (ciError) [left=7.5cm of ci]{Send error};
+  \node[process] (ciShut)     [above right=0.2cm and 0.4cm of ciError] {Shutting down};
+  \node[process] (ciInfo)     [above right=0.2cm and 0.4cm of ciShut]{Send info};
+  \node[process] (ciInput)    [above right=0.2cm and 0.4cm of ciInfo]{Send input};
+  \node[process] (ciCash)     [above right=0.2cm and 0.4cm of ciInput]{Complete purchase};
+  \node[process] (ciReport)   [above right=0.2cm and 0.4cm of ciCash]{Report monthly};
+  \node[process] (ciMonthly)  [above right=0.2cm and 0.4cm  of ciReport]{Pay monthly};
+  \node[process] (ciVal)  [above right=0.2cm and 0.4cm  of ciMonthly]{Validate account};
+
+
+  %DRAW
+
+  % CCS
+  \path[to] (ccs) edge node[midway, above] {raw events} (ccsPay) ;
+  \path[from] (ccs) edge node[midway, above] {raw} (ccsPayOk);
+
+  % GP
+  \path[from] (gp) edge node[midway, above] {raw events} (gpInfo) ;
+  \path[to] (gp) edge node[midway, above] {raw} (cliPur);
+
+  % INV
+  \path[to] (inv) edge node[midway, above] {raw} (invUpd);
+  \path[to] (reg) edge node[midway, above] {raw} (regUpd);
+
+
+  % GPI
+  \path[to] (gpi)   edge node[midway, above] {raw} (gpiReset)
+  edge node[midway, above] {raw} (gpiMsg)
+  edge node[midway, above] {raw} (cliOption)
+  edge node[midway, above] {raw} (gpiAsk);
+  \path[from] (gpi) edge node[midway, above] {raw} (gpiChoice)
+  edge node[midway, above] {raw} (cliType)
+  edge node[midway, above] {raw} (cliInst);
+
+  % CCR
+  \path[to] (ccr)   edge node[midway, above] {raw} (ccrSwipe);
+  \path[from] (ccr) edge node[midway, above] {raw} (ccrError)
+  edge node[midway, above] {raw} (ccrSend);
+
+  % CLI
+  \path[to] (client)   edge node[midway, above] {raw} (cliType)
+  edge node[midway, above] {raw} (cashChange)
+  edge node[midway, above] {raw} (cliInst);
+
+  \path[from] (client) edge node[midway, above] {raw} (ccrSwipe)
+  edge node[midway, above] {raw} (cliPur)
+  edge node[midway, above] {raw} (cliOption)
+  edge node[midway, above] {raw} (cashReport) 
+  edge node[midway, above] {raw} (cashCash) 
+  edge node[midway, above] {raw} (cashMont) 
+  edge node[midway, above] {raw} (cashReg);
+
+  % CASH
+  \path[to] (cash) edge node[midway, above] {raw} (cashReport) 
+  edge node[midway, above] {raw} (cashCash) 
+  edge node[midway, above] {raw} (cashMont) 
+  edge node[midway, above] {raw} (cashInst)
+  edge node[midway, above] {raw} (cashReg);
+
+  \path[from] (cash) edge node[midway, above] {raw} (cashChange) 
+  edge node[midway, above] {raw} (cashShut)
+  edge node[midway, above] {raw} (cashCancel)
+  edge node[midway, above] {raw} (cashInput)
+  edge node[midway, above] {raw} (cashMaint) ;
+
+  % CI
+  \path[from] (ci) 
+  edge node[midway, above] {raw} (cashInst)
+  edge node[midway, above] {raw} (ciShut)   
+ edge node[midway, above] {raw}  (ciInput)  
+ edge node[midway, above] {raw}  (ciCash)   
+ edge node[midway, above] {raw}  (ciReport) 
+ edge node[midway, above] {raw}  (ciMonthly);
+
+
+  \path[to] (ci) 
+  edge node[midway, above] {raw} (cashShut)
+  edge node[midway, above] {raw} (cashCancel)
+  edge node[midway, above] {raw} (cashInput)
+ edge node[midway, above] {raw}  (ciInfo) 
+ edge node[midway, above] {raw}  (ciVal)  
+ edge node[midway, above] {raw}  (ciError);
+
+  % GSCS
+  \path[from] (gscs)  edge node[midway, above] {raw events} (ccsPayOk)
+  edge  node[midway, above] {raw events} (gpiAsk) 
+  edge node[midway, above] {raw events} (gpiMsg) 
+  edge node[midway, above] {raw events} (gpiReset)
+  edge node[midway, above] {raw} (invUpd)
+  edge node[midway, above] {raw} (regUpd)
+ edge node[midway, above] {raw}  (ciInfo) 
+ edge node[midway, above] {raw}  (ciVal)  
+ edge node[midway, above] {raw}  (ciError);
+
+  \path[to] (gscs) edge  node[midway, above] {raw} (ccsPay)
+  edge node[midway, above] {raw} (gpInfo)
+  edge node[midway, above] {raw} (gpiChoice)
+  edge node[midway, above] {raw} (ccrSend)
+  edge node[midway, above] {raw} (cashMaint) 
+  edge node[midway, above] {raw} (ccrError)
+ edge node[midway, above] {raw}  (ciInput)  
+ edge node[midway, above] {raw}  (ciCash)   
+ edge node[midway, above] {raw}  (ciReport) 
+ edge node[midway, above] {raw}  (ciMonthly);
 
 
 
-  % Draw the arrows between the nodes and label them.
-%  \draw[to] (hisparcbox) -- node[midway,above] {raw events}
-%      node[midway,below] {level 0} (daq);
-%  \draw[to] (daq) -- node[midway,right] {raw event data\\level 1} (buffer);
-%  \draw[to] (buffer) --
-%      node[midway,right] {raw event data\\level 1} (monitor);
-%  \draw[to] (monitor) to[bend right=50] node[midway,above] {events}
-%      node[midway,below] {level 1} (storage);
-%  \draw[to] (storage) to[bend right=50] node[midway,above] {events}
-%      node[midway,below] {level 1} (monitor);
-%  \draw[to] (monitor) -- node[midway,above] {events}
-%  node[midway,below] {level 1} (datastore);
 \end{tikzpicture}
 \caption{Data-flow diagram}
 \label{fig:data-flow}
