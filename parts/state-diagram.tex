@@ -10,16 +10,16 @@
   ]
 
   \node (start) {$\bullet$};
-  \node[process, fill=red!20] (purchase) [above right=0.5cm and 0.5cm of start] {Wait purchase};
-  \node[process] (finish) [above right=of purchase] {Purchase finish};
+  \node[process, fill=red!20] (purchase) [below right=0.5cm and 0.5cm of start] {Wait purchase};
+  \node[process] (finish) [below right=of purchase] {Purchase finish};
   \node[process] (display) [right=3cm of finish] {Wait choice};
   \node[process] (done) [below right=2cm and 0cm of display] {Choice done};
   \node[process] (timed) [below left=2cm and 0cm of display] {Timed out};
   \node[process] (choose) [below=4cm of display] {Option choose};
-  \node[process] (paiment) [below right=of purchase] {Wait payment};
+  \node[process] (paiment) [left=of choose] {Wait payment};
   \node[process] (msg) [below left=of paiment] {Receive msg};
 
-  \draw[to] (purchase) edge[bend left] node[midway, above left] {?payment\_options} (finish);
+  \draw[to] (purchase) edge[bend left] node[midway, above] {?payment\_options} (finish);
   \draw[to] (finish) edge[bend left] node[midway, above] {!display\_options} (display);
 
   \draw[to] (display) edge[bend left] node[midway, above right] {[choice made] ?user\_choice} (done);
@@ -32,7 +32,7 @@
   \draw[to] (paiment) edge[bend left] node[midway, right] {?msg} (msg);
   \draw[to] (msg) edge[bend left] node[midway, left] {display\_msg} (paiment);
 
-  \draw[to] (paiment) edge[bend right] node[midway, above right] {?reset} (purchase);
+  \draw[to] (paiment) edge[bend left] node[midway, above right] {?reset} (purchase);
 
   \draw[to] (start) edge[bend right] (purchase);
 
@@ -46,11 +46,15 @@
 
 \begin{figure}[!h]
     \begin{tikzpicture}[
-  every node/.style={align=center, text width=3.2cm, ellipse, scale=0.8, font=\sffamily\tiny},
-  node distance = 2.5cm
+            process/.style={draw,thick,ellipse,draw, minimum height=0.5cm, ellipse, fill=yellow!20},
+            every node/.style={align=center, font=\sffamily\footnotesize},
+            to/.style={->,>=stealth',shorten >=1pt,semithick,font=\sffamily\tiny},
+            node distance = 2cm
   ]
 
-  \node (popo) {popo};
+
+  \node (start) {$\bullet$};
+  \node[process, fill=red!20] (menu) [above left=0.5cm and 0.5cm of start] {Display menu};
 
 \end{tikzpicture}
 \caption{State diagram of cashier interface}
