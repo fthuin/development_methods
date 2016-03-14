@@ -87,6 +87,8 @@
 
   \draw[to] (payment) edge[bend right] node[left] {?choose cash} (cash);
   \draw[to] (payment) edge[bend left] node[right] {?choose card} (card);
+
+  \draw[to] (card) edge[bend left] node[right] {[error]} (payment);
   
   \draw[to] (cash) edge[bend left] node[left] {} (complete);
   \draw[to] (card) edge[bend left] node[right] {?paiement done} (complete);
