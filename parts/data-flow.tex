@@ -40,13 +40,14 @@ description for each.
   font=\sffamily,
   every matrix/.style={ampersand replacement=\&,column sep=0.5cm,row sep=0.5cm},
   source/.style={draw,thick,rounded corners,fill=red!20,inner sep=.3cm},
-  process/.style={draw,thick,ellipse,fill=yellow!20},
+  process/.style={draw,thick,ellipse, text width=1.2cm,fill=yellow!20},
+  edges/.style={rectangle, rounded corners=5pt, fill=black!20},
   sink/.style={source,fill=blue!20},
   datastore/.style={draw,very thick,shape=datastore,inner sep=.3cm},
   dots/.style={gray,scale=2},
   from/.style={->,>=stealth',shorten >=1pt,semithick,font=\sffamily\tiny},
   to/.style={<-,>=stealth',shorten >=1pt,semithick,font=\sffamily\tiny},
-  every node/.style={align=center, text width=1.2cm, scale=0.85, font=\sffamily\tiny},
+  every node/.style={align=center, scale=0.85, font=\sffamily\tiny},
   node distance = 2.5cm
   ]
 
@@ -93,9 +94,9 @@ description for each.
 
   % GPI
   \node[process] (gpiAsk) [below left=0.5cm and 4cm of gpi] {Ask payment type};
-  \node[process] (gpiChoice) [below right=0.3cm and 0.3cm of gpiAsk] {Reply choice};
-  \node[process] (gpiMsg) [below right =0.3cm and 0.3cm  of gpiChoice] {Send msg};
-  \node[process] (gpiReset) [below right=0.3cm and 0.3cm  of gpiMsg] {Reset};
+  \node[process] (gpiReset) [below right=0.3cm and 0.3cm of gpiAsk] {Reset};
+  \node[process] (gpiMsg) [below right =0.3cm and 0.3cm  of gpiReset] {Send msg};
+  \node[process] (gpiChoice) [below right=0.3cm and 0.3cm  of gpiMsg] {Reply choice};
 
 
 
@@ -112,131 +113,131 @@ description for each.
   \node[process] (ccrError) [below left=0cm and 1.5cm of ccr] {Send error};
 
   % Cashier
-  \node[process] (cashMaint) [below right =1.0cm and 0.1cm of ccrError] {Do maintenance};
 
   \node[process] (cashInput) [left=of cash] {Input data};
   \node[process] (cashCancel) [above=0.5cm of cashInput] {Cancel operation};
   \node[process] (cashInst) [below=0.5cm of cashInput] {Display info};
   \node[process] (cashChoose) [below=0.5cm of cashInst] {Choose option};
 
-  \node[process] (cashChange) [above right=0.5cm and 3cm of cash] {Give change};
-  \node[process] (cashReport) [above left=0.3cm and 0.3cm of cashChange] {Report monthly};
+  \node[process] (cashReg) [above right=0.5cm and 3cm of cash] {Register};
+  \node[process] (cashReport) [above left=0.3cm and 0.3cm of cashReg] {Report monthly};
   \node[process] (cashCash) [above left= 0.3cm and 0.3cm of cashReport] {Pay purchase};
   \node[process] (cashMont) [above left= 0.3cm and 0.3cm of cashCash] {Pay monthly};
-  \node[process] (cashReg) [above left= 0.3cm and 0.3cm of cashMont] {Register};
+  \node[process] (cashChange) [above left= 0.3cm and 0.3cm of cashMont] {Give change};
+  \node[process] (cashMaint) [above left =0cm and 0.3cm of cashChange] {Do maintenance};
 
   % CI
   \node[process] (ciError) [left=7.5cm of ci]{Send error};
   \node[process] (ciShut)     [above right=0.2cm and 0.4cm of ciError] {Shutting down};
   \node[process] (ciInfo)     [above right=0.2cm and 0.4cm of ciShut]{Send info};
   \node[process] (ciInput)    [above right=0.2cm and 0.4cm of ciInfo]{Send input};
-  \node[process] (ciCash)     [above right=0.2cm and 0.4cm of ciInput]{Complete purchase};
-  \node[process] (ciReport)   [above right=0.2cm and 0.4cm of ciCash]{Report monthly};
-  \node[process] (ciMonthly)  [above right=0.2cm and 0.4cm  of ciReport]{Pay monthly};
+  \node[process] (ciReport)     [above right=0.2cm and 0.4cm of ciInput]{Report monthly};
+  \node[process] (ciCash)   [above right=0.2cm and 0.4cm of ciReport]{Complete purchase};
+  \node[process] (ciMonthly)  [above right=0.2cm and 0.4cm  of ciCash]{Pay monthly};
   \node[process] (ciVal)  [above right=0.2cm and 0.4cm  of ciMonthly]{Validate account};
 
 
   %DRAW
 
   % CCS
-  \path[to] (ccs) edge node[midway, left]
-  {\begin{tabular}{l}\#dollars\\credit card number\end{tabular}} (ccsPay) ;
-  \path[from] (ccs) edge node[midway, above] {\#dollars} (ccsPayOk);
+  \path[to] (ccs) edge node[midway, edges, ]
+  {\begin{tabular}{l}\#dollars\\\#credit card\end{tabular}} (ccsPay) ;
+      \path[from] (ccs) edge node[midway, edges, above] {\#dollars} (ccsPayOk);
 
-  % GP
-  \path[from] (gp) edge node[midway, right]
+      % GP
+      \path[from] (gp) edge node[midway, edges, right]
   {\begin{tabular}{l}\#dollars\\\#gallons\end{tabular}} (gpInfo) ;
-  \path[to] (gp) edge node[midway, above] {\#gallons} (cliPur);
+      \path[to] (gp) edge node[midway, edges, above] {\#gallons} (cliPur);
 
-  % INV
-  \path[to] (inv) edge node[midway, above] {raw} (invUpd);
-  \path[to] (reg) edge node[midway, above] {raw} (regUpd);
+      % INV
+      \path[to] (inv) edge node[midway, edges, above=0.5cm] {\begin{tabular}{l}\#dollars\\\#gallons\end{tabular}} (invUpd);
+      \path[to] (reg) edge node[midway, edges, below=0.5cm] {add\_info|check\_info} (regUpd);
 
 
-  % GPI
-  \path[to] (gpi)   edge node[midway, above] {} (gpiReset)
-  edge node[midway, below] {msg} (gpiMsg)
-  edge node[midway, above] {option choose} (cliOption)
-  edge node[midway, above] {list options} (gpiAsk);
+      % GPI
+      \path[to] (gpi)   edge (gpiReset)
+      edge node[midway, edges, below] {msg} (gpiMsg)
+      edge node[midway, edges, above] {option choose} (cliOption)
+      edge node[midway, edges, above] {list options} (gpiAsk);
 
-  \path[from] (gpi) edge node[midway, above] {option choose} (gpiChoice)
-  edge node[midway, below] {list options} (cliType)
-  edge node[midway, above] {msg} (cliInst);
+      \path[from] (gpi) edge node[midway, edges, above right] {option choose} (gpiChoice)
+      edge node[midway, edges, below] {list options} (cliType)
+      edge node[midway, edges, above] {msg} (cliInst);
 
-  % CCR
-  \path[to] (ccr)   edge node[midway, above] {card} (ccrSwipe);
-  \path[from] (ccr) edge node[midway, below] {error} (ccrError)
-  edge node[midway, above] {\#credit card} (ccrSend);
+      % CCR
+      \path[to] (ccr)   edge node[midway, edges, above] {card} (ccrSwipe);
+      \path[from] (ccr) edge node[midway, edges, below] {error} (ccrError)
+      edge node[midway, edges, above] {\#credit card} (ccrSend);
 
-  % CLI
-  \path[to] (client)   edge node[midway, below] {list options} (cliType)
-  edge node[midway, right] {cash} (cashChange)
-  edge node[midway, above] {msg} (cliInst);
+      % CLI
+      \path[to] (client)   edge node[midway, edges, below] {list options} (cliType)
+      edge node[midway, edges, left] {\#dollars} (cashChange)
+      edge node[midway, edges, above] {msg} (cliInst);
 
-  \path[from] (client) edge node[midway, above] {card} (ccrSwipe)
-  edge node[midway, right] {\#gallons} (cliPur)
-  edge node[midway, above] {option choose} (cliOption)
-  edge node[midway, below] {\#register} (cashReport)
-  edge node[midway, below] {cash} (cashCash)
-  edge node[midway, below] {\#register} (cashMont)
-  edge node[midway, below left]
+      \path[from] (client) edge node[midway, edges, above] {card} (ccrSwipe)
+      edge node[midway, edges, right] {\#gallons} (cliPur)
+      edge node[midway, edges, above] {option choose} (cliOption)
+      edge node[midway, edges, below] {\#register} (cashReport)
+      edge node[midway, edges, below] {\#dollars} (cashCash)
+      edge node[midway, edges, below] {\#register} (cashMont)
+      edge node[midway, edges, below right]
   {\begin{tabular}{l}name\\addr\\\#phone\\\#account\end{tabular}} (cashReg);
 
-  % CASH
-  \path[to] (cash) edge node[midway, above] {\#register} (cashReport)
-  edge node[midway, above] {cash} (cashCash)
-  edge node[midway, above] {\#register} (cashMont)
-  edge node[midway, above] {info} (cashInst)
-  edge node[midway, above] {\begin{tabular}{l}name\\addr\\\#phone\\\#account\end{tabular}} (cashReg);
+      % CASH
+      \path[to] (cash) edge node[midway, edges, above] {\#register} (cashReport)
+      edge node[midway, edges, above] {\#dollars} (cashCash)
+      edge node[midway, edges, above] {\#register} (cashMont)
+      edge node[midway, edges, above] {info} (cashInst)
+  edge node[midway, edges, below] {\begin{tabular}{l}name\\addr\\\#phone\\\#account\end{tabular}} (cashReg);
 
-  \path[from] (cash) edge node[midway, above] {cash} (cashChange)
-  edge node[midway, above] {cancel} (cashCancel)
-  edge node[midway, above] {input} (cashInput)
-  edge node[midway, below] {option choose} (cashChoose)
-  edge node[midway, above] {manual operation} (cashMaint) ;
+      \path[from] (cash) edge node[midway, edges, above] {\#dollars} (cashChange)
+      edge node[midway, edges, above] {cancel} (cashCancel)
+      edge node[midway, edges, above] {input} (cashInput)
+      edge node[midway, edges, below] {option choose} (cashChoose)
+      edge node[midway, edges, above left] {manual operation} (cashMaint) ;
 
-  % CI
-  \path[from] (ci)
-  edge node[midway, above] {info} (cashInst)
-  edge node[midway, above] {} (ciShut)
- edge node[midway, above] {input}  (ciInput)
- edge node[midway, above] {\#gp}  (ciCash)
- edge node[midway, above] {\begin{tabular}{l}\#register\\\#gp\end{tabular}}  (ciReport)
- edge node[midway, above]
- {\begin{tabular}{l}\#dollars\\\#register\\$[$\#card$]$\end{tabular}}  (ciMonthly);
+      % CI
+      \path[from] (ci)
+      edge node[midway, edges, left] {info} (cashInst)
+      edge (ciShut)
+      edge node[midway, edges, left] {input}  (ciInput)
+      edge node[midway, edges, above] {\#gp}  (ciCash)
+  edge node[midway, edges] {\begin{tabular}{l}\#register\\\#gp\end{tabular}}  (ciReport)
+      edge node[midway, edges, above]
+  {\begin{tabular}{l}\#dollars\\\#register\\$[$\#card$]$\end{tabular}}  (ciMonthly);
 
 
-  \path[to] (ci)
-  edge node[midway, above] {cancel} (cashCancel)
-  edge node[midway, below] {option choose} (cashChoose)
-  edge node[midway, above] {input} (cashInput)
- edge node[midway, above] {info}  (ciInfo)
- edge node[midway, above right] {\#register}  (ciVal)
- edge node[midway, below] {error}  (ciError);
+      \path[to] (ci)
+      edge node[midway, edges, above] {cancel} (cashCancel)
+      edge node[midway, edges, below] {option choose} (cashChoose)
+      edge node[midway, edges, above] {input} (cashInput)
+      edge node[midway, edges, left] {info}  (ciInfo)
+      edge node[midway, edges, above right] {\#register}  (ciVal)
+      edge node[midway, edges, below] {error}  (ciError);
 
-  % GSCS
-  \path[from] (gscs)  
-  edge  node[midway, left] {\begin{tabular}{l}\#dollars\\\#credit card\end{tabular}} (ccsPay)
-  edge  node[midway, above] {list options} (gpiAsk)
-  edge node[midway, above] {msg} (gpiMsg)
-  edge node[midway, above] {} (gpiReset)
-  edge node[midway, above] {\begin{tabular}{l}\#dollars\\\#gallons\end{tabular}} (invUpd)
-      edge node[midway, below] {add\_info|check\_info} (regUpd)
- edge node[midway, above] {info}  (ciInfo)
- edge node[midway, below right] {\#register}  (ciVal)
- edge node[midway, above] {error}  (ciError);
+      % GSCS
+      \path[from] (gscs)  
+  edge  node[midway, edges, left] {\begin{tabular}{l}\#dollars\\\#credit card\end{tabular}} (ccsPay)
+      edge  node[midway, edges, above] {list options} (gpiAsk)
+      edge node[midway, edges, above] {msg} (gpiMsg)
+      edge  (gpiReset)
+  edge node[midway, edges, above] {\begin{tabular}{l}\#dollars\\\#gallons\end{tabular}} (invUpd)
+      edge node[midway, edges, below] {add\_info|check\_info} (regUpd)
+      edge node[midway, edges, above] {info}  (ciInfo)
+      edge node[midway, edges, above ] {\#register}  (ciVal)
+      edge node[midway, edges, above] {error}  (ciError);
 
-  \path[to] (gscs) 
-  edge node[midway, above] {\#dollars} (ccsPayOk)
-  edge node[midway, above] {\begin{tabular}{l}\#dollars\\\#gallons\end{tabular}} (gpInfo)
-  edge node[midway, above] {option choose} (gpiChoice)
-  edge node[midway, above] {\#credit card} (ccrSend)
-  edge node[midway, below right] {manual operation} (cashMaint)
-  edge node[midway, above] {error} (ccrError)
- edge node[midway, below] {input}  (ciInput)
- edge node[midway, below] {\#gp}  (ciCash)
- edge node[midway, below] {\begin{tabular}{l}\#register\\\#gp\end{tabular}}  (ciReport)
- edge node[midway, below right] {\begin{tabular}{l}\#dollars\\\#register\\$[$\#card$]$\end{tabular}}  (ciMonthly);
+      \path[to] (gscs) 
+      edge node[midway, edges, above] {\#dollars} (ccsPayOk)
+  edge node[midway, edges, above] {\begin{tabular}{l}\#dollars\\\#gallons\end{tabular}} (gpInfo)
+      edge node[midway, edges, above] {option choose} (gpiChoice)
+      edge node[midway, edges, above] {\#credit card} (ccrSend)
+      edge node[midway, edges, below right] {manual operation} (cashMaint)
+      edge node[midway, edges, above] {error} (ccrError)
+      edge node[midway, edges, below] {input}  (ciInput)
+      edge node[midway, edges, above] {\#gp}  (ciCash)
+  edge node[midway, edges] {\begin{tabular}{l}\#register\\\#gp\end{tabular}}  (ciReport)
+  edge node[midway, edges, below right] {\begin{tabular}{l}\#dollars\\\#register\\$[$\#card$]$\end{tabular}}  (ciMonthly);
 
 
 
