@@ -1,22 +1,84 @@
+Although we know that the model made during the lab session only describe the
+parts directly related to the system and suggest that inputs and outputs are
+expressed w.r.t the system, we prefer to be as complete as possible with some
+unrelated parts (such as the customer that is only acting on the system through
+interfaces) which causes that input/ouput are expressed w.r.t each entity.
 
 \subsection{Credit card system}
 
+\paragraph{Interactions with} the GSCS
 
+\paragraph{Receives input from} the GSCS (credit card account number: text)
+
+\paragraph{Sends output to} the GSCS (amount of dollars: positive float up to
+999.99)
 
 \subsection{Credit card reader}
 
+\paragraph{Interactions with} the customer, the GSCS
+
+\paragraph{Receives input from} the customer (a credit card related to an
+account number)
+
+\paragraph{Sends output to} the GSCS (a credit card account number: text or
+an invalid token)
 
 \subsection{Gas pump}
 
+\paragraph{Interactions with} the customer, the GSCS
+
+\paragraph{Receives input from} the customer (amount of gallons: positive float)
+
+\paragraph{Sends output to} the GSCS (an amout of gallons: positive float, an
+amount of dollars: positive float up to 999.99)
 
 \subsection{Gas pump interface}
 
+\paragraph{Interactions with} the customer, the GSCS
+
+\paragraph{Receives input from} the GSCS (list of options: list, messages: text,
+reset instruction), the customer (option: list index)
+
+\paragraph{Sends output to} the GSCS (option number from the customer: positive
+integer), the customer (list of options: list, message: text)
 
 \subsection{Customer}
 
+\paragraph{Interactions with} the cashier, the credit card reader, the gas pump
+interface
+
+\paragraph{Receives input from} the gas pump interface (list of options: list,
+message: text), the cashier (change after cash payment: positive float)
+
+\paragraph{Sends output to} the gas pump interface (an option: a list index),
+the cashier (billing account number: text, cash: positive float)
 
 \subsection{Cashier}
 
+\paragraph{Interactions with} the customer, the cashier's interface
 
-\subsection{Cashier interface}
+\paragraph{Receives input from} the customer (cash payment: positive float,
+instructions), the cashier's interface (message: text)
 
+\paragraph{Send output to} the customer (change: positive float), the cashier's
+interface (input, instructions)
+
+\subsection{Cashier's interface}
+
+\paragraph{Interactions with} the cashier, the GSCS
+
+\paragraph{Receives input from} the cashier (valid account: boolean, inputs,
+cancel instruction), the GSCS (message:text, prompt window)
+
+\paragraph{Send output to} the cashier (message: text), the GSCS (monthly
+billing instruction, purchase finished instruction, cashier's input)
+
+\subsection{GSCS}
+
+\todo[inline]{TODO}
+
+\paragraph{Interactions with} TODO
+
+\paragraph{Receives input from} TODO
+
+\paragraph{Send output to} TODO

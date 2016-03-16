@@ -1,3 +1,4 @@
+\subsection{Requirement issues and adopted corrections}
 
 \paragraph{Requirement 1} After the purchase of gasoline, the gas pump
 reports the number of gallons purchased to the GSCS.\@ The GSCS updates the
@@ -211,11 +212,13 @@ receipt will be photocopied and stored with the rest of the year's receipts.
     \begin{itemize}
         \item It's ambiguous because we don't know how the customer send
             the payment. By mail or go to the gas pump? The definition of the
-            cashier says it only accept cash payment, there is no credit card
-            related hardware inside the cashier's interface.
+            cashier says it only accepts cash payment, there is no credit card
+            related hardware inside the cashier's interface, we will assume he
+            enters the billing account number along with the related information
+            of payment inside the GSCS.\@
 
         \item \enquote{by selecting the appropriate option} is not precise
-            enough because there is only one appropriate option that
+            enough because there is only one appropriate option in that case is
             \enquote{pay a monthly bill}.
 
         \item The fact that the receipt will be photocopied is
@@ -223,7 +226,8 @@ receipt will be photocopied and stored with the rest of the year's receipts.
     \end{itemize}
 
     \paragraph{Requirement 9 corrected} To pay a monthly bill, the customer must send
-    a cash payment along with the billing account number. The cashier selects
+    a cash payment along with the billing account number or the credit card account
+    number along with the billing account number. The cashier selects
     the monthly payment option from the
     cashier's interface. The GSCS then sends a message to the cashier's interface
     prompting the cashier to enter the billing account number, the amount
@@ -278,3 +282,11 @@ added with minimal effort.
 bankcard payment could be possible without modifying the existing structure of
 the system.
 \end{framed}
+
+\subsection{Other remarks}
+
+These requirements doesn't cover everything that the system does: for example,
+there isn't a word about how a customer can register into the system to place
+a monthly bill. As those information aren't essential for what is asked during
+this assignment, we feel free to process as we feel (for example by saying that
+the customer can register to the cashier).
