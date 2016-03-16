@@ -1,18 +1,8 @@
-
-
-The data-flow diagram is showing on fig~\ref{fig:data-flow}
-
-
-
-
-
-
-
-
-
-
-
-
+The data-flow diagram is shown on figure~\ref{fig:data-flow}. We tried
+to be as precise as possible (even it is not always needed in such
+a diagram), we assume that the choosen names for the roles, actors
+and data are self-explanatory so that it will not contain a brief
+description for each.
 
 \newgeometry{left=1cm, top=1cm}
 
@@ -94,7 +84,7 @@ The data-flow diagram is showing on fig~\ref{fig:data-flow}
 
   % Inventory
   \node[process] (invUpd) [right= 1cm of inv] {Update inventory};
-  
+
   % Registers
   \node[process] (regUpd) [right= 1cm of reg] {CRUD};
 
@@ -183,62 +173,62 @@ The data-flow diagram is showing on fig~\ref{fig:data-flow}
   \path[from] (client) edge node[midway, above] {raw} (ccrSwipe)
   edge node[midway, above] {raw} (cliPur)
   edge node[midway, above] {raw} (cliOption)
-  edge node[midway, above] {raw} (cashReport) 
-  edge node[midway, above] {raw} (cashCash) 
-  edge node[midway, above] {raw} (cashMont) 
+  edge node[midway, above] {raw} (cashReport)
+  edge node[midway, above] {raw} (cashCash)
+  edge node[midway, above] {raw} (cashMont)
   edge node[midway, above] {raw} (cashReg);
 
   % CASH
-  \path[to] (cash) edge node[midway, above] {raw} (cashReport) 
-  edge node[midway, above] {raw} (cashCash) 
-  edge node[midway, above] {raw} (cashMont) 
+  \path[to] (cash) edge node[midway, above] {raw} (cashReport)
+  edge node[midway, above] {raw} (cashCash)
+  edge node[midway, above] {raw} (cashMont)
   edge node[midway, above] {raw} (cashInst)
   edge node[midway, above] {raw} (cashReg);
 
-  \path[from] (cash) edge node[midway, above] {raw} (cashChange) 
+  \path[from] (cash) edge node[midway, above] {raw} (cashChange)
   edge node[midway, above] {raw} (cashShut)
   edge node[midway, above] {raw} (cashCancel)
   edge node[midway, above] {raw} (cashInput)
   edge node[midway, above] {raw} (cashMaint) ;
 
   % CI
-  \path[from] (ci) 
+  \path[from] (ci)
   edge node[midway, above] {raw} (cashInst)
-  edge node[midway, above] {raw} (ciShut)   
- edge node[midway, above] {raw}  (ciInput)  
- edge node[midway, above] {raw}  (ciCash)   
- edge node[midway, above] {raw}  (ciReport) 
+  edge node[midway, above] {raw} (ciShut)
+ edge node[midway, above] {raw}  (ciInput)
+ edge node[midway, above] {raw}  (ciCash)
+ edge node[midway, above] {raw}  (ciReport)
  edge node[midway, above] {raw}  (ciMonthly);
 
 
-  \path[to] (ci) 
+  \path[to] (ci)
   edge node[midway, above] {raw} (cashShut)
   edge node[midway, above] {raw} (cashCancel)
   edge node[midway, above] {raw} (cashInput)
- edge node[midway, above] {raw}  (ciInfo) 
- edge node[midway, above] {raw}  (ciVal)  
+ edge node[midway, above] {raw}  (ciInfo)
+ edge node[midway, above] {raw}  (ciVal)
  edge node[midway, above] {raw}  (ciError);
 
   % GSCS
   \path[from] (gscs)  edge node[midway, above] {raw events} (ccsPayOk)
-  edge  node[midway, above] {raw events} (gpiAsk) 
-  edge node[midway, above] {raw events} (gpiMsg) 
+  edge  node[midway, above] {raw events} (gpiAsk)
+  edge node[midway, above] {raw events} (gpiMsg)
   edge node[midway, above] {raw events} (gpiReset)
   edge node[midway, above] {raw} (invUpd)
   edge node[midway, above] {raw} (regUpd)
- edge node[midway, above] {raw}  (ciInfo) 
- edge node[midway, above] {raw}  (ciVal)  
+ edge node[midway, above] {raw}  (ciInfo)
+ edge node[midway, above] {raw}  (ciVal)
  edge node[midway, above] {raw}  (ciError);
 
   \path[to] (gscs) edge  node[midway, above] {raw} (ccsPay)
   edge node[midway, above] {raw} (gpInfo)
   edge node[midway, above] {raw} (gpiChoice)
   edge node[midway, above] {raw} (ccrSend)
-  edge node[midway, above] {raw} (cashMaint) 
+  edge node[midway, above] {raw} (cashMaint)
   edge node[midway, above] {raw} (ccrError)
- edge node[midway, above] {raw}  (ciInput)  
- edge node[midway, above] {raw}  (ciCash)   
- edge node[midway, above] {raw}  (ciReport) 
+ edge node[midway, above] {raw}  (ciInput)
+ edge node[midway, above] {raw}  (ciCash)
+ edge node[midway, above] {raw}  (ciReport)
  edge node[midway, above] {raw}  (ciMonthly);
 
 

@@ -75,10 +75,14 @@ billing instruction, purchase finished instruction, cashier's input)
 
 \subsection{GSCS}
 
-\todo[inline]{TODO}
+\paragraph{Interactions with} Credit card system, gas pump, gas pump
+interface, cashier's interface, credit card reader, cashier
 
-\paragraph{Interactions with} TODO
+\paragraph{Receives input from} the credit card system (reimbursement:
+positive float), the gas pump (amount of gallons purchased: positive
+float), the gas pump interface (option choose: positive integer),
+cashier's interface (cashier's input), credit card reader (credit card
+account number: text), cashier (maintenance operation)
 
-\paragraph{Receives input from} TODO
-
-\paragraph{Send output to} TODO
+\paragraph{Send output to} the credit card system (payment information),
+the gas pump interface (list of payment type: List), the cashier's interface (list of options: List, messsage: text)
