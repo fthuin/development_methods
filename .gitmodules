@@ -1,0 +1,6 @@
+[submodule "tycale"]
+	path = tycale
+	url = https://github.com/Tycale/dev-method_lingi2251.git
+[submodule "baertsm"]
+	path = baertsm
+	url = https://bitbucket.org/baertsm/lingi2251-developmentmethods.git
