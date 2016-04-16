@@ -9,6 +9,7 @@
 \usepackage{hyperref}
 \usepackage{amsmath}
 \usepackage{tikz}
+\usepackage{tikz-uml}
 \usepackage{multicol}
 \usetikzlibrary{automata,arrows,positioning,shapes}
 \usepackage{graphicx}
@@ -17,7 +18,7 @@
 
 \graphicspath{{img/}}
 
-\author{Florian Thuin (SINF21MS/G) \and Nicolas Houtain(SINF22MS/G)}
+\author{Florian Thuin (SINF21MS/G) 06561100 \and Nicolas Houtain (SINF22MS/G) 00000000}
 \date{\today}
 \title{Software engineering: Development methods --- Assignment 2}
 
@@ -29,6 +30,94 @@
 
     \section{Architectural design}
     \subsection{Decomposition hierarchical view}
+
+    \noindent
+    \begin{tikzpicture}
+        \begin{umlpackage}{System}
+            \begin{umlpackage}{GUI}
+                \umlclass{Gas pump interface}{}{}
+                \umlclass[y=-2]{Cashier's interface}{}{}
+            \end{umlpackage}
+            \begin{umlpackage}[x=5]{MainController}
+                \umlclass{Pump Controller}{}{}
+                \umlclass[y=-2]{Cashier Controller}{}{}
+                \umlclass[y=-4]{Customers Controller}{}{}
+                \begin{umlpackage}[y=-7]{External Devices Controller}
+                    \umlclass{Credit card reader}{}{}
+                    \umlclass[y=-2]{Credit card system}{}{}
+                \end{umlpackage}
+            \end{umlpackage}
+            \begin{umlpackage}[x=11.5]{Logger}
+                \umlclass{Accounting inventory}{}{}
+                \umlclass[y=-2]{Fuel stock inventory}{}{}
+            \end{umlpackage}
+        \end{umlpackage}
+    \end{tikzpicture}
+
+    \noindent
+    \begin{center}
+        \begin{tikzpicture}[on grid, auto, node distance=2cm]
+            \node[draw] (System) {System};
+            \node[draw, below of = System] (MainController) {MainController};
+            \node[draw, left = 8cm of MainController] (GUI) {GUI};
+            \node[draw, below left =2cm and 1cm of GUI, text width=1.5cm, align=center] (GPI) {Gas pump interface};
+            \node[draw, below right =2cm and 1.1cm of GUI, text width=1.75cm, align=center] (CI) {Cashier's interface};
+            \node[draw, right =6.5cm of MainController] (Logger) {Logger};
+            \node[draw, below of = MainController, text width=2cm, align=center] (EDC) {External Devices Controller};
+            \node[draw, left = 2.5cm of EDC, text width=2cm, align=center] (CC) {Cashier Controller};
+            \node[draw, left = 2.25cm of CC, text width=1.75cm, align=center] (PC) {Pump Controller};
+            \node[draw, right = 2.5cm of EDC, text width=2cm, align=center] (CCon) {Customers Controller};
+            \node[draw, below left =2cm and 1.5cm of EDC, text width=1.75cm, align=center] (CCR) {Credit card reader};
+            \node[draw, below right =2cm and 1.5cm of EDC, text width=1.75cm, align=center] (CCS) {Credit card system};
+            \node[draw, below left =2cm and 1.25cm of Logger, text width=2cm, align=center] (AI) {Accounting inventory};
+            \node[draw, below right =2cm and 1.25cm of Logger, text width=2cm, align=center] (FSI) {Fuel stock inventory};
+
+            \path[-latex, line width=2pt] (System) edge node {} (GUI);
+            \path[-latex, line width=2pt] (System) edge node {} (MainController);
+            \path[-latex, line width=2pt] (System) edge node {} (Logger);
+            \path[-latex, line width=2pt] (GUI) edge node {} (GPI);
+            \path[-latex, line width=2pt] (GUI) edge node {} (CI);
+            \path[-latex, line width=2pt] (MainController) edge node {} (PC);
+            \path[-latex, line width=2pt] (MainController) edge node {} (CC);
+            \path[-latex, line width=2pt] (MainController) edge node {} (EDC);
+            \path[-latex, line width=2pt] (MainController) edge node {} (CCon);
+            \path[-latex, line width=2pt] (Logger) edge node {} (AI);
+            \path[-latex, line width=2pt] (Logger) edge node {} (FSI);
+            \path[-latex, line width=2pt] (EDC) edge node {} (CCR);
+            \path[-latex, line width=2pt] (EDC) edge node {} (CCS);
+        \end{tikzpicture}
+    \end{center}
+
+    % \begin{tikzpicture}
+    %     \begin{umlpackage}{p}
+    %         \begin{umlpackage}{sp1}
+    %         \umlclass[template=T]{A}{
+    %           n : uint \\ t : float
+    %         }{}
+    %         \umlclass[y=-3]{B}{
+    %           d : double
+    %         }{
+    %           \umlvirt{setB(b : B) : void} \\ getB() : B}
+    %         \end{umlpackage}
+    %         \begin{umlpackage}[x=10,y=-6]{sp2}
+    %         \umlinterface{C}{
+    %           n : uint \\ s : string
+    %         }{}
+    %         \end{umlpackage}
+    %     \umlclass[x=2,y=-10]{D}{
+    %       n : uint
+    %       }{}
+    %     \end{umlpackage}
+    %
+    %     \umlassoc[geometry=-|-, arg1=tata, mult1=*, pos1=0.3, arg2=toto, mult2=1, pos2=2.9, align2=left]{C}{B}
+    %     \umlunicompo[geometry=-|, arg=titi, mult=*, pos=1.7, stereo=vector]{D}{C}
+    %     \umlimport[geometry=|-, anchors=90 and 50, name=import]{sp2}{sp1}
+    %     \umlaggreg[arg=tutu, mult=1, pos=0.8, angle1=30, angle2=60, loopsize=2cm]{D}{D}
+    %     \umlinherit[geometry=-|]{D}{B}
+    %     \umlnote[x=2.5,y=-6, width=3cm]{B}{Je suis une note qui concerne la classe B}
+    %     \umlnote[x=7.5,y=-2]{import-2}{Je suis une note qui concerne la relation d'import}
+    % \end{tikzpicture}
+
     \subsection{Roles and interactions}
     \section{Detailed design}
 \end{document}
