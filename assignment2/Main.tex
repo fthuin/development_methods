@@ -54,6 +54,7 @@
         \end{umlpackage}
     \end{tikzpicture}
 
+
     \noindent
     \begin{center}
         \begin{tikzpicture}[on grid, auto, node distance=2cm]
@@ -87,6 +88,60 @@
             \path[-latex, line width=2pt] (EDC) edge node {} (CCS);
         \end{tikzpicture}
     \end{center}
+
+    \noindent
+    \begin{tikzpicture}
+        \begin{umlpackage}{Client}
+            \umlclass{Gas pump interface}{}{}
+            \umlclass[y=-3]{Credit card reader}{}{}
+        \end{umlpackage}
+        \begin{umlpackage}[x=6]{System}
+            \begin{umlpackage}{GUI}
+                \umlclass{Cashier's interface}{}{}
+            \end{umlpackage}
+            \begin{umlpackage}[y=-3]{Controller}
+                \umlclass{Gas pump controller}{}{}
+                \umlclass[y=-2]{Credit card controller}{}{}
+                \umlclass[y=-4]{Purchase controller}{}{}
+            \end{umlpackage}
+            \begin{umlpackage}[x=6]{Logger}
+                \umlclass{Accounting inventory}{}{}
+                \umlclass[y=-2]{Fuel stock inventory}{}{}
+            \end{umlpackage}
+        \end{umlpackage}
+    \end{tikzpicture}
+
+    \noindent
+    \begin{tikzpicture}
+        \node[draw] (GSCS) {GSCS};
+        \node[draw, below left = 1cm and 4cm of GSCS] (Client) {Client};
+        \node[draw, below left = 2cm and 0.5cm of Client, text width=1.5cm, align=center] (GPI) {Gas pump interface};
+        \node[draw, below = 2cm of Client, text width=1.5cm, align=center] (CCR) {Credit card reader};
+        \node[draw, below right = 1cm and 0cm of GSCS] (System) {System};
+        \node[draw, below left = 2cm and 3.5cm of System] (GUI) {GUI};
+        \node[draw, below = 3cm of GUI, text width=2cm, align=center] (CI) {Cashier's interface};
+        \node[draw, below = 2cm of System] (Controller) {Controller};
+        \node[draw, below left = 3cm and 0.25cm of Controller, text width=1.65cm, align=center] (GPC) {Gas pump controller};
+        \node[draw, below = 3cm of Controller, text width=1.75cm, align=center] (CCC) {Credit card controller};
+        \node[draw, below right = 3cm and 0.25cm of Controller, text width=2cm, align=center] (PC) {Purchase controller};
+        \node[draw, below right = 2cm and 3.5cm of System] (Logger) {Logger};
+        \node[draw, below = 3cm of Logger, text width=2cm, align=center] (AI) {Accounting inventory};
+        \node[draw, below right = 3cm and 1cm of Logger, text width=1.65cm, align=center] (FSI) {Fuel stock inventory};
+
+        \path[-latex] (GSCS) edge node {} (Client);
+        \path[-latex] (GSCS) edge node {} (System);
+        \path[-latex] (Client) edge node {} (GPI);
+        \path[-latex] (Client) edge node {} (CCR);
+        \path[-latex] (System) edge node {} (GUI);
+        \path[-latex] (System) edge node {} (Controller);
+        \path[-latex] (System) edge node {} (Logger);
+        \path[-latex] (GUI) edge node {} (CI);
+        \path[-latex] (Controller) edge node {} (GPC);
+        \path[-latex] (Controller) edge node {} (CCC);
+        \path[-latex] (Controller) edge node {} (PC);
+        \path[-latex] (Logger) edge node {} (AI);
+        \path[-latex] (Logger) edge node {} (FSI);
+    \end{tikzpicture}
 
     % \begin{tikzpicture}
     %     \begin{umlpackage}{p}
