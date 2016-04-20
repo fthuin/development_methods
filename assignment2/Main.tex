@@ -31,63 +31,63 @@
     \section{Architectural design}
     \subsection{Decomposition hierarchical view}
 
-    \noindent
-    \begin{tikzpicture}
-        \begin{umlpackage}{System}
-            \begin{umlpackage}{GUI}
-                \umlclass{Gas pump interface}{}{}
-                \umlclass[y=-2]{Cashier's interface}{}{}
-            \end{umlpackage}
-            \begin{umlpackage}[x=5]{MainController}
-                \umlclass{Pump Controller}{}{}
-                \umlclass[y=-2]{Cashier Controller}{}{}
-                \umlclass[y=-4]{Customers Controller}{}{}
-                \begin{umlpackage}[y=-7]{External Devices Controller}
-                    \umlclass{Credit card reader}{}{}
-                    \umlclass[y=-2]{Credit card system}{}{}
-                \end{umlpackage}
-            \end{umlpackage}
-            \begin{umlpackage}[x=11.5]{Logger}
-                \umlclass{Accounting inventory}{}{}
-                \umlclass[y=-2]{Fuel stock inventory}{}{}
-            \end{umlpackage}
-        \end{umlpackage}
-    \end{tikzpicture}
-
-
-    \noindent
-    \begin{center}
-        \begin{tikzpicture}[on grid, auto, node distance=2cm]
-            \node[draw] (System) {System};
-            \node[draw, below of = System] (MainController) {MainController};
-            \node[draw, left = 8cm of MainController] (GUI) {GUI};
-            \node[draw, below left =2cm and 1cm of GUI, text width=1.5cm, align=center] (GPI) {Gas pump interface};
-            \node[draw, below right =2cm and 1.1cm of GUI, text width=1.75cm, align=center] (CI) {Cashier's interface};
-            \node[draw, right =6.5cm of MainController] (Logger) {Logger};
-            \node[draw, below of = MainController, text width=2cm, align=center] (EDC) {External Devices Controller};
-            \node[draw, left = 2.5cm of EDC, text width=2cm, align=center] (CC) {Cashier Controller};
-            \node[draw, left = 2.25cm of CC, text width=1.75cm, align=center] (PC) {Pump Controller};
-            \node[draw, right = 2.5cm of EDC, text width=2cm, align=center] (CCon) {Customers Controller};
-            \node[draw, below left =2cm and 1.5cm of EDC, text width=1.75cm, align=center] (CCR) {Credit card reader};
-            \node[draw, below right =2cm and 1.5cm of EDC, text width=1.75cm, align=center] (CCS) {Credit card system};
-            \node[draw, below left =2cm and 1.25cm of Logger, text width=2cm, align=center] (AI) {Accounting inventory};
-            \node[draw, below right =2cm and 1.25cm of Logger, text width=2cm, align=center] (FSI) {Fuel stock inventory};
-
-            \path[-latex, line width=2pt] (System) edge node {} (GUI);
-            \path[-latex, line width=2pt] (System) edge node {} (MainController);
-            \path[-latex, line width=2pt] (System) edge node {} (Logger);
-            \path[-latex, line width=2pt] (GUI) edge node {} (GPI);
-            \path[-latex, line width=2pt] (GUI) edge node {} (CI);
-            \path[-latex, line width=2pt] (MainController) edge node {} (PC);
-            \path[-latex, line width=2pt] (MainController) edge node {} (CC);
-            \path[-latex, line width=2pt] (MainController) edge node {} (EDC);
-            \path[-latex, line width=2pt] (MainController) edge node {} (CCon);
-            \path[-latex, line width=2pt] (Logger) edge node {} (AI);
-            \path[-latex, line width=2pt] (Logger) edge node {} (FSI);
-            \path[-latex, line width=2pt] (EDC) edge node {} (CCR);
-            \path[-latex, line width=2pt] (EDC) edge node {} (CCS);
-        \end{tikzpicture}
-    \end{center}
+    % \noindent
+    % \begin{tikzpicture}
+    %     \begin{umlpackage}{System}
+    %         \begin{umlpackage}{GUI}
+    %             \umlclass{Gas pump interface}{}{}
+    %             \umlclass[y=-2]{Cashier's interface}{}{}
+    %         \end{umlpackage}
+    %         \begin{umlpackage}[x=5]{MainController}
+    %             \umlclass{Pump Controller}{}{}
+    %             \umlclass[y=-2]{Cashier Controller}{}{}
+    %             \umlclass[y=-4]{Customers Controller}{}{}
+    %             \begin{umlpackage}[y=-7]{External Devices Controller}
+    %                 \umlclass{Credit card reader}{}{}
+    %                 \umlclass[y=-2]{Credit card system}{}{}
+    %             \end{umlpackage}
+    %         \end{umlpackage}
+    %         \begin{umlpackage}[x=11.5]{Logger}
+    %             \umlclass{Accounting inventory}{}{}
+    %             \umlclass[y=-2]{Fuel stock inventory}{}{}
+    %         \end{umlpackage}
+    %     \end{umlpackage}
+    % \end{tikzpicture}
+    %
+    %
+    % \noindent
+    % \begin{center}
+    %     \begin{tikzpicture}[on grid, auto, node distance=2cm]
+    %         \node[draw] (System) {System};
+    %         \node[draw, below of = System] (MainController) {MainController};
+    %         \node[draw, left = 8cm of MainController] (GUI) {GUI};
+    %         \node[draw, below left =2cm and 1cm of GUI, text width=1.5cm, align=center] (GPI) {Gas pump interface};
+    %         \node[draw, below right =2cm and 1.1cm of GUI, text width=1.75cm, align=center] (CI) {Cashier's interface};
+    %         \node[draw, right =6.5cm of MainController] (Logger) {Logger};
+    %         \node[draw, below of = MainController, text width=2cm, align=center] (EDC) {External Devices Controller};
+    %         \node[draw, left = 2.5cm of EDC, text width=2cm, align=center] (CC) {Cashier Controller};
+    %         \node[draw, left = 2.25cm of CC, text width=1.75cm, align=center] (PC) {Pump Controller};
+    %         \node[draw, right = 2.5cm of EDC, text width=2cm, align=center] (CCon) {Customers Controller};
+    %         \node[draw, below left =2cm and 1.5cm of EDC, text width=1.75cm, align=center] (CCR) {Credit card reader};
+    %         \node[draw, below right =2cm and 1.5cm of EDC, text width=1.75cm, align=center] (CCS) {Credit card system};
+    %         \node[draw, below left =2cm and 1.25cm of Logger, text width=2cm, align=center] (AI) {Accounting inventory};
+    %         \node[draw, below right =2cm and 1.25cm of Logger, text width=2cm, align=center] (FSI) {Fuel stock inventory};
+    %
+    %         \path[-latex, line width=2pt] (System) edge node {} (GUI);
+    %         \path[-latex, line width=2pt] (System) edge node {} (MainController);
+    %         \path[-latex, line width=2pt] (System) edge node {} (Logger);
+    %         \path[-latex, line width=2pt] (GUI) edge node {} (GPI);
+    %         \path[-latex, line width=2pt] (GUI) edge node {} (CI);
+    %         \path[-latex, line width=2pt] (MainController) edge node {} (PC);
+    %         \path[-latex, line width=2pt] (MainController) edge node {} (CC);
+    %         \path[-latex, line width=2pt] (MainController) edge node {} (EDC);
+    %         \path[-latex, line width=2pt] (MainController) edge node {} (CCon);
+    %         \path[-latex, line width=2pt] (Logger) edge node {} (AI);
+    %         \path[-latex, line width=2pt] (Logger) edge node {} (FSI);
+    %         \path[-latex, line width=2pt] (EDC) edge node {} (CCR);
+    %         \path[-latex, line width=2pt] (EDC) edge node {} (CCS);
+    %     \end{tikzpicture}
+    % \end{center}
 
     \noindent
     \begin{tikzpicture}
@@ -174,5 +174,63 @@
     % \end{tikzpicture}
 
     \subsection{Roles and interactions}
+
+    The components are separated in two main parts: the client and the system.
+
+    \subsubsection{Client}
+
+    The client contains the modules directly related to the
+    customer that contains:
+
+    \begin{description}
+        \item[Gas pump interface:] This graphical user interface is in charge of
+        displaying information sent by the system and sending back input from
+        the customer. As it is said in the assignment, the communication is
+        handled by external libraries.
+        \item[Credit card reader:] This module is in charge of retrieving and
+        sending the credit card number or an error to the system. The
+        communication is handled by external libraries.
+    \end{description}
+
+    \subsubsection{System}
+
+    The system contains the modules directly related to the management of the
+    data of the parts of the GSCS or from the cashier. There are three main
+    sub-modules that have components:
+
+    \begin{description}
+        \item[GUI:] The graphical user interface inside the system
+            \subitem\textbf{Cashier's interface} The cashier's interface is a
+            GUI that displays information from the purchase controller to the
+            cashier.
+        \item[Controller:] Input and commands handler
+            \subitem\textbf{Gas pump controller} handles the data from the gas
+            pump and the gas pump interface, sends messages to the gas pump
+            interface and sends information to the purchase controller.
+            \subitem\textbf{Credit card controller} handles the data from the
+            credit card reader, sends error to the gas pump controller if any
+            or sends confirmation/error to the purchase controller.
+            \subitem\textbf{Purchase controller} handles the data from the gas
+            pump controller, sends information to the credit card controller
+            and the cashier's interface and queries the logger's modules when
+            the current purchase is done.
+        \item[Logger:] DBMS to retrieve or modify stored data
+            \subitem\textbf{Accounting inventory} stores and retrieves data
+            related to customer billing account.
+            \subitem\textbf{Fuel stock inventory} stores and retrieves data
+            related to the amount purchased at each gas pump.
+    \end{description}
+
     \section{Detailed design}
+
+    \subsection{Class diagram}
+    \subsubsection{Short description of the roles of the class}
+    \subsection{Uses diagram}
+
+    \section{Design patterns}
+    \subsection{Template pattern}
+    \subsection{Strategy pattern}
+    \subsection{Decorator pattern}
+    \subsection{Observer pattern}
+    \subsection{Composite pattern}
 \end{document}
