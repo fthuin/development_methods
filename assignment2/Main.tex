@@ -224,6 +224,37 @@
     \section{Detailed design}
 
     \subsection{Class diagram}
+
+    \noindent
+    \begin{tikzpicture}
+        \umlclass[x=4]{Purchase}{amount \\ price}{}
+        \umlsimpleclass[y=-3]{Cash Purchase}
+        \umlsimpleclass[x=4,y=-3]{Account Purchase}
+        \umlsimpleclass[x=8,y=-3]{Credit purchase}
+        \umlsimpleclass[x=8]{Fuel}
+        \umlsimpleclass[x=8, y=-1]{Gas pump}
+        \umlclass[x=12]{Fuel Stock}{amount}{}
+        \umlclass[x=4,y=-6]{Payment}{price}{}
+        \umlsimpleclass[x=2,y=-9]{Check payment}
+        \umlsimpleclass[x=6,y=-9]{Credit payment}
+        \umlclass[x=13, y=-3]{Credit transaction}{cardNumber \\ price}{}
+        \umlclass[x=13, y=-8]{Account}{number \\ balance}{}
+        \umlsimpleclass[x=13, y=-12]{Customer}
+
+        \umlinherit{Cash Purchase}{Purchase}
+        \umlinherit{Account Purchase}{Purchase}
+        \umlinherit{Credit purchase}{Purchase}
+        \umlassoc[mult1=1, mult2=*]{Fuel}{Purchase}
+        \umlassoc[mult1=1, mult2=*]{Gas pump}{Purchase}
+        \umlassoc[mult1=1, mult2=1]{Fuel Stock}{Fuel}
+        \umlassoc[mult1=1, mult2=0..1]{Credit transaction}{Credit purchase}
+        \umlassoc[mult1=1, mult2=*]{Account}{Account Purchase}
+        \umlassoc[mult1=1, align1=left, mult2=0..1, align2=right]{Credit transaction}{Credit payment}
+        \umlassoc[mult1=*, mult2=1]{Payment}{Account}
+        \umlassoc[mult1=1, mult2=0..1]{Customer}{Account}
+        \umlinherit{Check payment}{Payment}
+        \umlinherit{Credit payment}{Payment}
+    \end{tikzpicture}
     \subsubsection{Short description of the roles of the class}
     \subsection{Uses diagram}
 
