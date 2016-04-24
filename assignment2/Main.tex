@@ -224,36 +224,36 @@
     \section{Detailed design}
     \subsection{Class diagram}
 
-    \noindent
-    \begin{tikzpicture}
-        \umlclass[x=4]{Purchase}{amount \\ price}{}
-        \umlsimpleclass[y=-3]{Cash Purchase}
-        \umlsimpleclass[x=4,y=-3]{Account Purchase}
-        \umlsimpleclass[x=8,y=-3]{Credit purchase}
-        \umlsimpleclass[x=8]{Fuel}
-        \umlsimpleclass[x=8, y=-1]{Gas pump}
-        \umlclass[x=12]{Fuel Stock}{amount}{}
-        \umlclass[x=4,y=-6]{Payment}{price}{}
-        \umlsimpleclass[x=2,y=-9]{Check payment}
-        \umlsimpleclass[x=6,y=-9]{Credit payment}
-        \umlclass[x=13, y=-3]{Credit transaction}{cardNumber \\ price}{}
-        \umlclass[x=13, y=-8]{Account}{number \\ balance}{}
-        \umlsimpleclass[x=13, y=-12]{Customer}
-
-        \umlinherit{Cash Purchase}{Purchase}
-        \umlinherit{Account Purchase}{Purchase}
-        \umlinherit{Credit purchase}{Purchase}
-        \umlassoc[mult1=1, mult2=*]{Fuel}{Purchase}
-        \umlassoc[mult1=1, mult2=*]{Gas pump}{Purchase}
-        \umlassoc[mult1=1, mult2=1]{Fuel Stock}{Fuel}
-        \umlassoc[mult1=1, mult2=0..1]{Credit transaction}{Credit purchase}
-        \umlassoc[mult1=1, mult2=*]{Account}{Account Purchase}
-        \umlassoc[mult1=1, align1=left, mult2=0..1, align2=right]{Credit transaction}{Credit payment}
-        \umlassoc[mult1=*, mult2=1]{Payment}{Account}
-        \umlassoc[mult1=1, mult2=0..1]{Customer}{Account}
-        \umlinherit{Check payment}{Payment}
-        \umlinherit{Credit payment}{Payment}
-    \end{tikzpicture}
+    % \noindent
+    % \begin{tikzpicture}
+    %     \umlclass[x=4]{Purchase}{amount \\ price}{}
+    %     \umlsimpleclass[y=-3]{Cash Purchase}
+    %     \umlsimpleclass[x=4,y=-3]{Account Purchase}
+    %     \umlsimpleclass[x=8,y=-3]{Credit purchase}
+    %     \umlsimpleclass[x=8]{Fuel}
+    %     \umlsimpleclass[x=8, y=-1]{Gas pump}
+    %     \umlclass[x=12]{Fuel Stock}{amount}{}
+    %     \umlclass[x=4,y=-6]{Payment}{price}{}
+    %     \umlsimpleclass[x=2,y=-9]{Check payment}
+    %     \umlsimpleclass[x=6,y=-9]{Credit payment}
+    %     \umlclass[x=13, y=-3]{Credit transaction}{cardNumber \\ price}{}
+    %     \umlclass[x=13, y=-8]{Account}{number \\ balance}{}
+    %     \umlsimpleclass[x=13, y=-12]{Customer}
+    %
+    %     \umlinherit{Cash Purchase}{Purchase}
+    %     \umlinherit{Account Purchase}{Purchase}
+    %     \umlinherit{Credit purchase}{Purchase}
+    %     \umlassoc[mult1=1, mult2=*]{Fuel}{Purchase}
+    %     \umlassoc[mult1=1, mult2=*]{Gas pump}{Purchase}
+    %     \umlassoc[mult1=1, mult2=1]{Fuel Stock}{Fuel}
+    %     \umlassoc[mult1=1, mult2=0..1]{Credit transaction}{Credit purchase}
+    %     \umlassoc[mult1=1, mult2=*]{Account}{Account Purchase}
+    %     \umlassoc[mult1=1, align1=left, mult2=0..1, align2=right]{Credit transaction}{Credit payment}
+    %     \umlassoc[mult1=*, mult2=1]{Payment}{Account}
+    %     \umlassoc[mult1=1, mult2=0..1]{Customer}{Account}
+    %     \umlinherit{Check payment}{Payment}
+    %     \umlinherit{Credit payment}{Payment}
+    % \end{tikzpicture}
 
     \newgeometry{left=0.5cm, bottom=0.5cm}
     \tikzumlset{font=\scriptsize}
@@ -270,13 +270,13 @@
         \umlclass[x=15,y=-5.5]{Credit card reader}{+pumpNumber: int}{+getCardNumber(): String}
         \umlclass[x=7,y=-5]{Credit transaction}{+cardNumber: String\\ +price: float}{}
         \umlclass[x=10,y=-13]{Controller}{}{+handlePayment(payment:Payment): void\\ handlePurchase(purchase: Purchase): void\\ +isCustomerRegistered(): boolean}
-        \umlclass[y=-6]{Account}{+number: String\\ +balance:float}{}
+        \umlclass[y=-7]{Account}{+number: String\\ +balance:float}{}
         \umlclass[x=10,y=-17]{Cashier's interface}{}{+backToPreviousScreen(): View\\ +displayText(message:String)\\ +transmitOption(): int\\ +transmitInput(): String}
         \umlclass[x=10,y=-21]{Cashier}{+cash: float}{+performMaintenance(): void\\ +registerCustomer(name:String,address:String,phoneNumber:String): void\\ +chooseOption(): void\\ +monthlyBillPayment(billingAccountNumber:String,dollarsAmount:float): void\\ +handleCashPayment(dollarsAmount:float): void\\ +input(): text}
         \umlclass[y=-14]{Customer}{+name: String\\ +address: String\\ +phoneNumber: String\\ +accountNumber: String}{+choosePaymentOption(): void\\ +swipeCard(): void\\ +payCash(): void}
-        \umlclass[x=3,y=-6]{Payment}{+price: float\\ +date: Date}{}
-        \umlsimpleclass[x=1,y=-9]{Check payment}
-        \umlsimpleclass[x=4.5,y=-9]{Credit payment}
+        \umlclass[x=3,y=-7]{Payment}{+price: float\\ +date: Date}{}
+        \umlsimpleclass[x=1,y=-10]{Check payment}
+        \umlsimpleclass[x=4.5,y=-10]{Credit payment}
         \umlclass[x=14,y=-10]{Credit card system}{}{+reimburse(payment:Payment):boolean}
 
         \umlinherit[geometry=|-|, anchor1=90, anchor2=230]{Cash purchase}{Purchase}
@@ -299,14 +299,84 @@
         \umlassoc{Gas pump controller}{Gas pump interface}
         \umlassoc{Gas pump controller}{Gas pump}
         \umlassoc{Gas pump}{Purchase}
+        \umlassoc{Credit transaction}{Credit purchase}
     \end{tikzpicture}
     \restoregeometry
 
     \subsubsection{Short description of the roles of the class}
     \subsection{Uses diagram}
 
+    \newgeometry{left=0.5cm, bottom=0.5cm}
+    \tikzumlset{font=\scriptsize}
+    \begin{tikzpicture}[on grid, auto]
+        \umlclass[x=1]{Purchase}{+amount: float \\ +price: float}{+isFinished(): boolean}
+        \umlsimpleclass[x=10]{Fuel}
+        \umlclass[x=14]{Fuel stock}{+amount: float \\ +capacity: float}{}
+        \umlsimpleclass[x=-1,y=-3]{Cash purchase}
+        \umlsimpleclass[x=1,y=-4]{Account purchase}
+        \umlsimpleclass[x=3,y=-3]{Credit purchase}
+        \umlclass[x=8.5, y=-2]{Gas pump}{+id: int}{+reportPurchase(): Purchase}
+        \umlclass[x=10, y=-8]{Gas pump controller}{}{+sendMessage(message:String): void\\ +handlePaymentOption(): void}
+        \umlclass[x=14,y=-3]{Gas pump interface}{+pumpNumber: int}{+displayText(message:String):void\\ +reset(): void\\ +transmitOption():int}
+        \umlclass[x=15,y=-5.5]{Credit card reader}{+pumpNumber: int}{+getCardNumber(): String}
+        \umlclass[x=7,y=-5]{Credit transaction}{+cardNumber: String\\ +price: float}{}
+        \umlclass[x=10,y=-13]{Controller}{}{+handlePayment(payment:Payment): void\\ handlePurchase(purchase: Purchase): void\\ +isCustomerRegistered(): boolean}
+        \umlclass[y=-7]{Account}{+number: String\\ +balance:float}{}
+        \umlclass[x=10,y=-17]{Cashier's interface}{}{+backToPreviousScreen(): View\\ +displayText(message:String)\\ +transmitOption(): int\\ +transmitInput(): String}
+        \umlclass[x=10,y=-21]{Cashier}{+cash: float}{+performMaintenance(): void\\ +registerCustomer(name:String,address:String,phoneNumber:String): void\\ +chooseOption(): void\\ +monthlyBillPayment(billingAccountNumber:String,dollarsAmount:float): void\\ +handleCashPayment(dollarsAmount:float): void\\ +input(): text}
+        \umlclass[y=-14]{Customer}{+name: String\\ +address: String\\ +phoneNumber: String\\ +accountNumber: String}{+choosePaymentOption(): void\\ +swipeCard(): void\\ +payCash(): void}
+        \umlclass[x=3,y=-7]{Payment}{+price: float\\ +date: Date}{}
+        \umlsimpleclass[x=1,y=-10]{Check payment}
+        \umlsimpleclass[x=4.5,y=-10]{Credit payment}
+        \umlclass[x=14,y=-10]{Credit card system}{}{+reimburse(payment:Payment):boolean}
+
+        \umlimport{Cash purchase}{Purchase}
+        \umlimport{Account purchase}{Purchase}
+        \umlimport{Credit purchase}{Purchase}
+        \umlimport{Account}{Payment}
+        \umlimport{Check payment}{Payment}
+        \umlimport{Credit payment}{Payment}
+        \umlimport[anchor1=120, anchor2=-135]{Customer}{Account}
+        \umlimport{Credit transaction}{Credit purchase}
+        \umlimport{Gas pump controller}{Gas pump interface}
+        \umlimport{Gas pump controller}{Credit card reader}
+        \umlimport{Gas pump controller}{Gas pump}
+        \umlimport{Gas pump}{Purchase}
+        \umlimport{Purchase}{Fuel}
+        \umlimport{Fuel}{Fuel stock}
+        \umlimport{Controller}{Cashier's interface}
+        \umlimport{Controller}{Credit card system}
+        \umlimport{Controller}{Gas pump controller}
+        \umlimport[anchor1=155, anchor2=-120]{Controller}{Credit transaction}
+        \umlimport{Controller}{Customer}
+        \umlimport{Cashier's interface}{Cashier}
+    \end{tikzpicture}
+    \restoregeometry
+
     \section{Design patterns}
     \subsection{Template pattern}
+
+    \begin{tikzpicture}
+        \umlclass[type=abstract,x=1]{Payment}{+price: float\\ +date: Date}{+getReceipt(): void\\ \textit{+getPaymentMethodName(): String}}
+        \umlclass[y=-4]{Check payment}{}{+getPaymentMethodName(): String}
+        \umlclass[x=6,y=-4]{Credit payment}{}{+getPaymentMethodName(): String}
+
+        \umlnote[x=10,width=9cm]{Payment}{abstract class Payment \{ \\
+                                          \ \ \ \ float price; \\
+                                          \ \ \ \ Date date; \\
+
+                                          \ \ \ \ public String get Receipt() \{ \\
+                                          \ \ \ \ \ \ \ \ String result = "DINOCO" + date.toString() + "\textbackslash{}n"; \\
+                                          \ \ \ \ \ \ \ \ result += "Price: " + price; \\
+                                          \ \ \ \ \ \ \ \ result += "paid with " + getPaymentMethodName(); \\
+                                          \ \ \ \ \ \ \ \ return result; \\
+                                          \ \ \ \ \} \\
+                                          \ \ \ \ public abstract String getPaymentMethodName(); \\
+                                \}}
+
+        \umlinherit{Check payment}{Payment}
+        \umlinherit{Credit payment}{Payment}
+    \end{tikzpicture}
     \subsection{Strategy pattern}
     \subsection{Decorator pattern}
     \subsection{Observer pattern}
