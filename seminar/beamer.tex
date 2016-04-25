@@ -1,0 +1,274 @@
+\documentclass{beamer}
+
+\usepackage{graphicx} % Gestion des images
+\usepackage{graphics} % Gestion de placement d'images
+\usepackage{hyperref} % Référence liée
+\usepackage[english]{babel} % Langue du document
+\usepackage[utf8]{inputenc} % Encodage du document
+\usepackage[T1]{fontenc} % Encodage de la police
+\usepackage[babel=true]{csquotes} % Utilisation d'enquote
+
+\newenvironment{wideitemize}{\itemize\addtolength{\itemsep}{10pt}}{\enditemize}
+
+\mode<presentation>
+	{
+	\usetheme{contributors}
+	%\usetheme{Pittsburgh}
+	\setbeamercovered{transparent = 28}
+	}
+
+%\usecolortheme{Moo}
+%\useinnertheme{Moo}
+%\useoutertheme{Moo}
+
+
+\logo{logo_epl.png}
+\title{LINGI2251 Software engineering}
+\subtitle{Facts and Fallacies: Management}
+\author{Florian Thuin \\ Nicolas Kabasele \\ Nicolas Houtain \\ Nathan Magrofuoco}
+
+\institute{Ecole Polytechnique de Louvain}
+\abrevinstitute{Ecole Polytechnique de Louvain}
+
+\begin{document}
+
+
+\begin{frame}[plain]
+	\titlepage
+\end{frame}
+
+
+\AtBeginSection[]
+{
+   \begin{frame}
+       \frametitle{Plan}
+       \tableofcontents[currentsection,hideothersubsections]
+   \end{frame}
+}
+
+\section{Fallacies 3: People}
+
+\subsection{Fact 1}
+\begin{frame}
+    \frametitle{Fact 1}
+    \begin{block}{Fact}
+        The most important factor in software work is \textit{not} the tools and
+        techniques used by the programmers, but rather the quality of the
+        programmers themselves.
+    \end{block}
+\end{frame}
+
+\subsection{Fact 2}
+\begin{frame}
+    \frametitle{Fact 2}
+    \begin{block}{Fact}
+    The best programmers are up to 28 times better than the worst programmers,
+    according to \enquote{individual differences} research. Given that
+    their pay is never commensurate, they are the biggest bargains in the
+    software field.
+    \end{block}
+\end{frame}
+
+\subsection{Fact 3}
+\begin{frame}
+    \frametitle{Fact 3}
+    \begin{block}{Fact}
+    Adding people to a late project makes it later.
+    \end{block}
+\end{frame}
+
+\subsection{Fact 4}
+\begin{frame}
+    \frametitle{Fact 4}
+    \begin{block}{Fact}
+    The working environment has a profound impact on productivity and product
+    quality.
+    \end{block}
+\end{frame}
+
+\section{Fallacies 6: Estimation}
+
+\subsection{Fact 8}
+\begin{frame}
+    \frametitle{Fact 8}
+    \begin{block}{Fact}
+    One of the two most common causes of runaway projects is poor estimation.
+    \end{block}
+\end{frame}
+
+\subsection{Fact 9}
+\begin{frame}
+    \frametitle{Fact 9}
+    \begin{block}{Fact}
+    Most software estimates are performed at the beginning of the life cycle.
+    This makes sense until we realize that estimates are obtained before the
+    requirements are defined and thus before the problem is understood.
+    Estimation, therefore, usually occurs at the wrong time.
+    \end{block}
+\end{frame}
+
+\subsection{Fact 10}
+\begin{frame}
+    \frametitle{Fact 10}
+    \begin{block}{Fact}
+    Most software estimates are made either by upper management or by marketing,
+    not by the people who will build the software or their managers. Estimation
+    is, therefore, done by the wrong people.
+    \end{block}
+\end{frame}
+
+\subsection{Fact 11}
+\begin{frame}
+    \frametitle{Fact 11}
+    \begin{block}{Fact}
+    Software estimates are rarely adjusted as the project proceeds. Thus those
+    estimates done at the wrong time by the wrong people are usually not
+    corrected.
+    \end{block}
+\end{frame}
+
+\subsection{Fact 12}
+\begin{frame}
+    \frametitle{Fact 12}
+    \begin{block}{Fact}
+    Since estimates are so faulty, there is little reason to be concerned when
+    software projects do not meet estimated targets. But everyone is concerned
+    anyway.
+    \end{block}
+\end{frame}
+
+\subsection{Fact 13}
+\begin{frame}
+    \frametitle{Fact 13}
+    \begin{block}{Fact}
+    There is a disconnect between management and their programmers. In one
+    research study of a project that failed to meet its estimates and was seen
+    by its management as a failure, the technical participants saw it as the
+    most successful project they had ever worked on.
+    \end{block}
+\end{frame}
+
+\subsection{Fact 14}
+\begin{frame}
+    \frametitle{Fact 14}
+    \begin{block}{Fact}
+    The answer to a feasibility study is almost always \enquote{yes.}
+    \end{block}
+\end{frame}
+
+\section{Reuse}
+
+\subsection{Fact 15}
+\begin{frame}
+    \frametitle{Fact 15}
+    \begin{block}{Fact}
+    Reuse-in-the-small (libraries of subroutines) began nearly 50 years ago and
+    is a well-solved problem.
+    \end{block}
+\end{frame}
+
+\subsection{Fact 16}
+\begin{frame}
+    \frametitle{Fact 16}
+    \begin{block}{Fact}
+    Reuse-in-the-large (components) remains a mostly unsolved problem, even
+    though everyone agrees it is important and desirable.
+    \end{block}
+\end{frame}
+
+\subsection{Fact 17}
+\begin{frame}
+    \frametitle{Fact 17}
+    \begin{block}{Fact}
+    Reuse-in-the-large works best in families of related systems and thus is
+    domain-dependent. This narrows the potential applicability of
+    reuse-in-the-large.
+    \end{block}
+\end{frame}
+
+\subsection{Fact 18}
+\begin{frame}
+    \frametitle{Fact 18}
+    \begin{block}{Fact}
+    There are two \enquote{rules of three} in reuse: (a) It is three times as
+    difficult to build reusable components as single use components, and (b) a
+    reusable component should be tried out in three different applications
+    before it will be sufficiently general to accept into a reuse library.
+    \end{block}
+\end{frame}
+
+\subsection{Fact 19}
+\begin{frame}
+    \frametitle{Fact 19}
+    \begin{block}{Fact}
+    Modification of reused code is particularly error-prone. If more than 20 to
+    25 percent of a component is to be revised, it is more efficient and
+    effective to rewrite it from scratch.
+    \end{block}
+\end{frame}
+
+\subsection{Fact 20}
+\begin{frame}
+    \frametitle{Fact 20}
+    \begin{block}{Fact}
+    Design pattern reuse is one solution to the problems inherent in code reuse.
+    \end{block}
+\end{frame}
+
+\begin{frame}
+	\frametitle{What is this ?}
+		\begin{itemize}
+ 			\item This presentation is based on a simple theme
+ 			\item This presentation shows how we can customize and make
+                \enquote{beamer} ours
+ 			\item Like the logo on the title slide
+ 			\item And the logo on the top right corner
+ 		\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{How tough is it to make a presentation ?}
+		\begin{wideitemize}
+			\item Not a lot
+			\item Simple commands with a concept in mind for
+			\pause
+			\item Colour
+			\pause
+			\item Font
+			\pause
+			\item Inner details
+			\pause
+			\item Outer details
+		\end{wideitemize}
+\end{frame}
+
+\section{Colors}
+
+\begin{frame}
+	\frametitle{EPL brings colours to life}
+		\begin{description}
+			\item [Blue] Notice the colour of description item title
+			\item [Still blue] It can be set globally
+			\item [\color{red} Red] \dots but can also be changed if required
+		\end{description}
+\end{frame}
+
+\begin{frame}
+	\frametitle{You can personalize EPL. (S)he doesn't mind.}
+
+		\begin{theorem}[It's a theorem]
+			You can change the way the boxes look and feel
+		\end{theorem}
+
+		\begin{exampleblock}{Example}
+			Exemplify EPL.
+		\end{exampleblock}
+
+		\begin{alertblock}{Alert}
+			Sometimes EPL gets carried away.
+		\end{alertblock}
+\end{frame}
+
+
+\end{document}
