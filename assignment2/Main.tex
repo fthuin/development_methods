@@ -309,19 +309,21 @@
     \subsection{Strategy pattern}
 
     \begin{tikzpicture}
-        \umlclass[type=interface,x=5]{Reporting}{}{\textit{+print(): void}}
-        \umlclass[x=2,y=-3]{Payment}{+price: float\\ +date: Date}{+print(): void}
-        \umlclass[x=8,y=-3]{Account}{+number: String\\ +balance: float}{+print(): void}
-        \umlsimpleclass[y=-5.5]{Check payment}
-        \umlsimpleclass[x=4,y=-5.5]{Credit payment}
+        \umlclass{PrintOut}{reporting:Reporting}{print(): void}
+        \umlclass[type=interface,x=7]{Reporting}{}{\textit{+print(): void}}
+        \umlclass[x=4,y=-3]{Payment}{+price: float\\ +date: Date}{+print(): void}
+        \umlclass[x=10,y=-3]{Account}{+number: String\\ +balance: float}{+print(): void}
+        \umlsimpleclass[x=2,y=-5.5]{Check payment}
+        \umlsimpleclass[x=6,y=-5.5]{Credit payment}
 
         \umlimpl[geometry=|-|, anchor2=-110]{Payment}{Reporting}
         \umlimpl[geometry=|-|, anchor2=-70]{Account}{Reporting}
         \umlinherit[geometry=|-, anchor2=-150]{Check payment}{Payment}
         \umlinherit[geometry=|-, anchor2=-30]{Credit payment}{Payment}
         \umlassoc{Payment}{Account}
+        \umlcompo{PrintOut}{Reporting}
 
-        \umlnote[x=10]{Reporting}{public void print();}
+        \umlnote[x=12]{Reporting}{public void print();}
         \umlnote[x=12,y=-9, width=8cm]{Account}{public class Account implements Reporting \{ \\
                                      \ \ \ \ public String number = ""; \\
                                      \ \ \ \ public float balance = 0.0; \\
@@ -335,7 +337,7 @@
                                      \ \ \ \ \} \\
                                      \ \ \ \ ... \\
                                      \}}
-        \umlnote[x=2,y=-9, width=8cm]{Payment}{public class Account implements Reporting \{ \\
+        \umlnote[x=3.5,y=-9, width=8cm]{Payment}{public class Payment implements Reporting \{ \\
                                                 \ \ \ \ public float price = 0.0; \\
                                                 \ \ \ \ public Date date = new Date(); \\
                                                 \ \ \ \ ... \\
@@ -348,6 +350,9 @@
                                                 \ \ \ \ \} \\
                                                 \ \ \ \ ... \\
                                                 \}}
+        \umlnote[y=-2.5, width=4cm]{PrintOut}{public void print() \{ \\
+                           \ \ \ \ return reporting.print(); \\
+                          \}}
     \end{tikzpicture}
 
     \subsection{Decorator pattern}
