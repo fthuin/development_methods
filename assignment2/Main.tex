@@ -163,24 +163,23 @@
         \umlinherit[geometry=|-|, anchor1=90, anchor2=230]{Cash purchase}{Purchase}
         \umlinherit{Account purchase}{Purchase}
         \umlinherit[geometry=|-|, anchor1=90, anchor2=310]{Credit purchase}{Purchase}
-        \umlassoc{Purchase}{Fuel}
-        \umlassoc{Fuel}{Fuel stock}
-
+        \umlassoc[mult1=0..*,mult2=1,align1=left, align2=left]{Purchase}{Fuel}
+        \umlassoc[mult1=1,mult2=1]{Fuel}{Fuel stock}
         \umlinherit[geometry=|-|, anchors=60 and -135]{Check payment}{Payment}
         \umlinherit[geometry=|-|, anchors=60 and -45]{Credit payment}{Payment}
         \umlassoc{Payment}{Account}
-        \umlassoc[geometry=|-|, anchor1=220, anchor2=-135]{Account}{Customer}
-        \umlassoc[geometry=|-|]{Account}{Account purchase}
-        \umlassoc{Credit transaction}{Credit payment}
-        \umlassoc{Cashier}{Cashier's interface}
-        \umlassoc{Controller}{Cashier's interface}
-        \umlassoc{Controller}{Credit card system}
-        \umlassoc{Controller}{Gas pump controller}
-        \umlassoc{Gas pump controller}{Credit card reader}
-        \umlassoc{Gas pump controller}{Gas pump interface}
-        \umlassoc{Gas pump controller}{Gas pump}
-        \umlassoc{Gas pump}{Purchase}
-        \umlassoc{Credit transaction}{Credit purchase}
+        \umlassoc[geometry=|-|, anchor1=220, anchor2=-135,mult1=0..1,mult2=1,pos2=2.2]{Account}{Customer}
+        \umlassoc[geometry=|-|,mult1=1,mult2=0..*,pos2=2.7]{Account}{Account purchase}
+        \umlassoc[anchor2=30,mult1=1,mult2=0..1]{Credit transaction}{Credit payment}
+        \umlassoc[mult1=1,mult2=1]{Cashier}{Cashier's interface}
+        \umlassoc[mult1=1,mult2=1]{Controller}{Cashier's interface}
+        \umlassoc[mult1=1,mult2=1..*,pos1=0.4]{Controller}{Credit card system}
+        \umlassoc[mult1=1,mult2=1..*]{Controller}{Gas pump controller}
+        \umlassoc[mult1=1,mult2=1,pos1=0.6]{Gas pump controller}{Credit card reader}
+        \umlassoc[mult1=1,mult2=1]{Gas pump controller}{Gas pump interface}
+        \umlassoc[mult1=1,mult2=1]{Gas pump controller}{Gas pump}
+        \umlassoc[mult1=1,mult2=0..*]{Gas pump}{Purchase}
+        \umlassoc[mult1=1,mult2=0..1,pos1=0,pos2=0.5]{Credit transaction}{Credit purchase}
     \end{tikzpicture}
     \restoregeometry
 
