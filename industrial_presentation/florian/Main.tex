@@ -1,0 +1,133 @@
+\documentclass[a4paper, 11pt]{article}
+
+\usepackage[french]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{placeins}
+\usepackage{qtree}
+\usepackage{csquotes}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{multicol}
+\usetikzlibrary{automata,arrows,positioning,shapes}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+
+\graphicspath{{img/}}
+
+\author{Florian Thuin}
+\date{\today}
+\title{Industrial presentation}
+
+\begin{document}
+
+    \maketitle
+    \tableofcontents
+    \clearpage{}
+
+    \section{Software development process}
+
+    At Actito, they use the Agile method. The R\& D team uses Agile+Scrum and
+    the Operations team uses Agile+Kanban. Sprint lasts 2 weeks including a
+    2-days test phases. \newline
+
+    Changes during the sprint is made on a Build-branch, at the end of the
+    Sprint (once the branch is less unstable), the branch merges on the
+    stable-development branch to become a candidate release. Once a candidate
+    release is approved by a senior developer, it becomes a release before
+    being pushed in production.
+
+    \section{Software development staffing}
+    \section{Requirements acquisition process}
+
+    \begin{tikzpicture}[auto, on grid,node distance=3cm, align=center]
+        \node[draw, text width=1.5cm] (SM) {Scoping meeting};
+        \node[draw, right of=SM, text width=1.5cm] (PO) {Product owner}; % plays the role of a customer
+        \node[draw, right of=PO, text width=1.5cm] (LS) {List of stories};
+        \node[draw, right of=LS, text width=1.5cm] (Scrum) {Scrum meeting}; % team
+        \node[draw, right of=Scrum, text width=1.75cm] (LSPE) {List of stories prioritized evaluates};
+        \node[draw, right of=LSPE, text width=1.5cm] (ScrumMaster) {Scrum Master};
+        \node[draw, below of=LS, text width=1.85cm] (TeamPP) {Team spokesman};
+        \node[draw, below of=ScrumMaster, text width=1.5cm] (SC) {Sprint content};
+        \node[above = 2cm of LSPE] (V) {Velocity};
+        \node[above = 2cm of ScrumMaster] (A) {Availability};
+
+        \path[-latex] (SM) edge node {} (PO);
+        \path[-latex] (PO) edge node {} (LS);
+        \path[-latex] (LS) edge node {} (Scrum);
+        \path[-latex] (Scrum) edge node {} (LSPE);
+        \path[-latex] (LSPE) edge node {} (ScrumMaster);
+        \path[-latex] (TeamPP) edge node {} (LS);
+        \path[-latex] (ScrumMaster) edge node {} (SC);
+        \path[-latex,dashed] (V) edge node {} (ScrumMaster);
+        \path[-latex,dashed] (A) edge node {} (ScrumMaster);
+    \end{tikzpicture}
+
+    \section{Requirements documentation and specification}
+
+    The product owner is an senior developer from the company that guides and
+    specifies the product for the team.
+
+    \section{Software architecture}
+
+    Actito had a monolithic architecture with two big applications: the
+    \enquote{Actito Core} and the \enquote{Actito Web}. Those applications were
+    hard to maintain and hard to scale. The deployment of a new version generated
+    interruption of services and it was a real problem to scale a part of the
+    system. If a part of the application required new version of a certain
+    technology, the whole application had to be reviewed with the new requirements
+    of the new version. \newline
+
+    Since it was no more manageable, the applications were split in small
+    single-purpose applications (approx. 40 applications). It improved the
+    load-balancing of a part of the system, it decreased the time of interruption
+    of service at each release and allowed to perform maintenance only on half
+    of the applications last year.
+
+    \section{Quality metrics, measurement}
+
+    There is a team that ensures applications to be user friendly such that
+    there is no need of manuals or big documentation (only tooltips inside
+    the application). \newline
+
+    No other measurement were discussed.
+
+    \section{Testing process}
+
+    Tests are runned every night and 2 two days at the end of the sprint are
+    reserved for manual testing and bug correction.
+
+    \section{Tools used}
+    \subsection{Tools used for requirements}
+
+    Requirements are encoded in a tool named Jira. This tool from Atlassian
+    create Kanban and Scrum table with the encoded requirements as a to-do list,
+    then a developer is assigned to a task, when he starts to work the task moves
+    to an in-progress list. When he finished a task, it passes to the code review.
+    A manager (senior developer) reviews the code:
+
+    \begin{itemize}
+        \item if the work is good, the task passes to a Done list;
+        \item if the work isn't good enough, the task goes back to the to-do list
+        to be improved.
+    \end{itemize}
+
+    \subsection{Tools used for architecture}
+    \subsection{Tools used for testing}
+
+    Tests are runned every night on the \enquote{build} environment with Jenkins
+    to manage the result of each tests. Kibana, Munin and Nagios are used as bug tracker
+    for the bugs not found in the tests (environment are monitored and bugs are
+    classified as Blocker, Critical, Major, Minor, Trivial).
+    \subsection{Tools used for measurement}
+
+    Measurement of the time needed to complete each requirement is decided by
+    planning poker with all developers during a meeting at the start of each
+    sprint. \newline
+
+    Measurement of lines of code are made with the Git work-flow, other
+    measurements were not discussed.
+
+\end{document}

@@ -6,10 +6,13 @@
 \usepackage{placeins}
 \usepackage{csquotes}
 \usepackage{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{automata,arrows,positioning,shapes}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
 
 \author{Florian Thuin}
 \date{\today}
-\title{Mettre un titre}
+\title{Presentation notes}
 
 \begin{document}
     \maketitle
@@ -159,13 +162,32 @@
 
     Those functionalities are too coarse-grained to be stories as-is.
 
-                                                                                                                                                                                                Velocity        Availability(vacances)
-                                                                                                                                                                                                      \         /
-    Scoping meeting ----------------> Product owner (plays the role of a customer) --------> List of stories -----------------> Scrum meeting --------> List stories prioritized evaluates -----------> Scrum Master
-                    high level functionalities                                                      ^                               (team)                                                                  |
-                                                                                                    |                                                                                                       v
-                                                                                               Scrum master                                                                                             Sprint content
-                                                                                               (Team porte-parole)
+    \begin{tikzpicture}[auto, on grid,node distance=3cm, align=center]
+        \node[draw, text width=1.5cm] (SM) {Scoping meeting};
+        \node[draw, right of=SM, text width=1.5cm] (PO) {Product owner}; % plays the role of a customer
+        \node[draw, right of=PO, text width=1.5cm] (LS) {List of stories};
+        \node[draw, right of=LS, text width=1.5cm] (Scrum) {Scrum meeting}; % team
+        \node[draw, right of=Scrum, text width=1.75cm] (LSPE) {List of stories prioritized evaluates};
+        \node[draw, right of=LSPE, text width=1.5cm] (ScrumMaster) {Scrum Master};
+        \node[draw, below of=LS, text width=1.85cm] (TeamPP) {Team spokesman};
+        \node[draw, below of=ScrumMaster, text width=1.5cm] (SC) {Sprint content};
+
+        \path[->] (SM) edge node {} (PO);
+        \path[->] (PO) edge node {} (LS);
+        \path[->] (LS) edge node {} (Scrum);
+        \path[->] (Scrum) edge node {} (LSPE);
+        \path[->] (LSPE) edge node {} (ScrumMaster);
+        \path[->] (TeamPP) edge node {} (LS);
+        \path[->] (SC) edge node {} (ScrumMaster);
+    \end{tikzpicture}
+
+                                                                                                                                                                                                % Velocity        Availability(vacances)
+                                                                                                                                                                                                %       \         /
+    % Scoping meeting ----------------> Product owner (plays the role of a customer) --------> List of stories -----------------> Scrum meeting --------> List stories prioritized evaluates -----------> Scrum Master
+    %                 high level functionalities                                                      ^                               (team)                                                                  |
+    %                                                                                                 |                                                                                                       v
+    %                                                                                            Scrum master                                                                                             Sprint content
+    %                                                                                            (Team porte-parole)
     Specification are defined in JIRA.\@
 
     \subsubsection{Stories are defined by the Scrum master and the product owner.}
