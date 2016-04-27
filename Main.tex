@@ -1,0 +1,430 @@
+\documentclass[a4paper, 11pt]{article}
+
+\usepackage[french]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{placeins}
+\usepackage{csquotes}
+\usepackage{hyperref}
+
+\author{Florian Thuin}
+\date{\today}
+\title{Mettre un titre}
+
+\begin{document}
+    \maketitle
+    \tableofcontents
+
+    2014 graduate
+
+    \section{About Actito}
+
+    \subsection{The company}
+
+    Louvain-la-Neuve. Old Citobi. 50+ people. Created 2000. RTL-TVI, Kia, Lunch Garden,
+    L'Oréal, PartenaMut, ABB, Generali, La grande récré, noukie's, toyota, SNCB, VW, Touring
+    Ranstad, TEC, AXA
+
+    France 2014
+
+    \subsection{The software \textemdash{} Commercial point of view}
+
+    Actito is a marketing automation software platform. Customization for each
+    customer in large database of the client.
+
+    Interact with customers,regardless of the channel
+
+    Centralise all your data and interactions in one place
+
+    The right content to the right person at the right time of their journey
+
+    100\% in the Cloud
+
+    \subsection{The software \textemdash{} Technical point of view}
+
+    Our production servers are located somewhere in Belgium.
+
+    The servers for our testing environment are stored at Actito headquarters in
+    Louvain-la-Neuve
+
+    Our infrastructure is in constant expansion.
+
+    \subsubsection{From a monolithic to a microservices architecture}
+
+    Not so far ago, Actito had a monolithic architecture with two big applications:
+    Actito Core and Actito Web.
+
+    Question: Can you list the issues that raise from a monolithic architecture
+    when the system grows with many new functionalities?
+
+    \begin{itemize}
+        \item Strong coupling
+        \item Conflict between technologies evolution (obligé de modifier certaines parties du code
+        à cause de ça alors qu'on voulait pas y toucher)
+        \item One change in the program oblige le déploiement de toute l'application.
+        \item If you want to scale a part of your system, it is not possible you are forced to replicate all the application.
+    \end{itemize}
+
+    \begin{itemize}
+        \item Deployment: interruption of service
+        \item Hard to use new technologies
+        \item Hard to maintain
+        \item How to scale only a part of the system?
+    \end{itemize}
+
+    \subsubsection{We adopted an architecture with small single purpose applications}
+
+    \begin{itemize}
+        \item Very short interruption of service on one application at a time (not even
+        true if stateless and replicated)
+        \item Free to use the best new technologies
+        \item We need to perform a maintenance on an old application only when it is
+        absolutely necessary
+        \item Some applications can be load balanced.
+    \end{itemize}
+
+    we have at least 40 applications but 20 we didn't touch in the last year.
+
+    \subsubsection{We use mostly well known open source technologies}
+
+    Do you know those technologies?
+
+    Git, Spring, Bower, MAven, RabbitMQ, Tomcat, NGINC, Ember, MySQL, Cassandra, Hibernate
+
+    \subsection{The IT team}
+
+    \subsubsection{R\& D}
+
+    \begin{itemize}
+        \item Standard
+        \item Scrum
+        \item Product Owner
+        \item 1 manager, 7 developers
+        \item One manager
+    \end{itemize}
+
+    \subsubsection{Operations}
+
+    \begin{itemize}
+        \item Client specific
+        \item Kanban
+        \item Clients
+        \item 4 Technical project managers, 4 developers
+        \item Two managers
+    \end{itemize}
+
+    There is no good solution in software engineering. We have to do with the
+    deadline of the client, with the kind of team we're dealing with, different
+    kind of workers.
+
+    \section{The development process}
+
+    R\& D team with 8 engineers
+
+    What to do?
+
+    How to prioritize the work?
+
+    How to split the work?
+
+    How to monitor the progress and overcome
+    % ???
+
+    \subsection{Our Scrum methodology}
+
+    Our work schedule is divided in Sprints of two weeks.
+
+    A sprint contains stories.
+
+    A story is a functional unit to be developed
+
+    A story as a complexity, represented by points.
+
+    We an compute the velocity of the team. It allows the Scrum master to
+    know the quantity of stories that can be included in a single Sprint.
+
+    The product owner is responsible of defining the stories and verifying that the developed
+    story meets the specification.
+
+    Pecheur: You have product owner, you have a manager/Scrum master. What is the difference
+    between product owner and scrum manager?
+
+    \subsubsection{High level functionalities of Actito are defined in scoping meeting}
+
+    Meeting every 2 months between the direction, the Scrum master and the product owner.
+
+    The philosophy of the software is discussed.
+
+    High level functionalities are defined and prioritized.
+
+    Those functionalities are too coarse-grained to be stories as-is.
+
+                                                                                                                                                                                                Velocity        Availability(vacances)
+                                                                                                                                                                                                      \         /
+    Scoping meeting ----------------> Product owner (plays the role of a customer) --------> List of stories -----------------> Scrum meeting --------> List stories prioritized evaluates -----------> Scrum Master
+                    high level functionalities                                                      ^                               (team)                                                                  |
+                                                                                                    |                                                                                                       v
+                                                                                               Scrum master                                                                                             Sprint content
+                                                                                               (Team porte-parole)
+    Specification are defined in JIRA.\@
+
+    \subsubsection{Stories are defined by the Scrum master and the product owner.}
+
+    Before the beginning of a Sprint, the Scrum master and the product owner meet to define
+    the next stories and their priority.
+
+    The stories are encoded in Jira.
+
+    Other kind of tasks must be considered (Technical Analysis, Technical Task, Epic,\ldots)
+
+    Example of a story: As a Actito User, I want to see my campaign transactions only for
+    30 days.
+
+    \subsubsection{Let's play Poker!}
+
+    At the start of the Sprint, meeting with the whole team.
+
+    The product owner explains the stories.
+
+    The developers discuss and evaluate the complexity by playing planning poker. (Testing is included in the complexity)
+
+    Very different estimations show that there is a misunderstanding of the story.
+
+    \subsubsection{The Sprint can start}
+
+    The Scrum master decides what stories will be included in the Sprint, depending of the velocity (and of developer vacations).
+
+    The team agrees on the Sprint content and commits to it.
+
+    Every developer takes a story. If the story is too big, it is divided in technical tasks and can be worked on in parallel.
+
+    When a story is finished, the product owner validates it.
+
+    \subsubsection{Our work is far to be finished at the end of the Sprint}
+
+    A release candidate is created and intensively tested (on a relatively stable environment).
+
+    Later, this release candidate becomes a release and is deployed in production.
+
+    Many other technical tasks to perform: maintenance, bug fixes, bug hunting in logs (monitoring environments),
+    support for other teams,\ldots
+
+    $\Rightarrow$ This is why we do not work on new stories the two last days of a sprint.
+
+    BUILD   -------------- Sprint
+    DEVELOP             |   2 days   | for other technical tasks
+            -------------------------- Release candidate
+            --------------------------------------------------- Release
+            --------------------------------------------------------------- Production
+
+    \subsection{Environments}
+
+    \subsubsection{There is a need for multiple environments}
+
+    We need an environment for:
+
+    \begin{itemize}
+        \item The developer to code
+        \item The developments to be integrated together
+        \item The product owner to validate the stories
+        \item Testing the release candidate
+        \item Pre-production testing (by our commercials and some clients)
+        \item The production
+    \end{itemize}
+
+
+    \subsubsection{We need an environment for the developer to code}
+
+    On the developer machine (Linux or Mac)
+
+    Code managed with Git
+
+    IntelliJ as our IDE
+
+    Our microservices architecture makes it challenging to maintain a working
+    developer environment
+
+    $\Rightarrow$ Each developer is responsible for his working environment.
+
+    \subsubsection{We need an environment for developments to be integrated together and to validate the stories}
+
+    The BUILD environment is scratched every day.
+
+    The developers can verify if there developments do not break an integrated environment.
+
+    Integration tests run every night.
+
+    Usage of Jenkins for deployment and continuous integration.
+
+    Sadly, this is a very unstable environment.
+
+    $\Rightarrow$ Must be stable at the end of the Sprint.
+
+    \subsubsection{We need an environment for testing the release candidate}
+
+
+    The STABLEDEV environment. It runs on servers located at Actito headquarters.
+
+    Stabilization of the release candidate.
+
+    Integration tests also run every night.
+
+    One person tests intensively the release candidate.
+
+    This environment is far more stable than Build.
+
+    $\Rightarrow$ Error and instability must be corrected asap.
+
+    \subsubsection{We need an environment for pre-production testing and for production}
+
+    Those environments are called TEST and PROD
+
+    Both used by clients.
+
+    They must obviously be very stable.
+
+    Actito is contractually engaged to guarantee 99\% up-time. (PROD)
+
+    \subsubsection{Each environment is monitored}
+
+    Each environment is under the responsibility of a developer.
+
+    Kibana and Jira are used as bug tracker
+
+    The quality manager and one of the developer are responsible for the bug list.
+
+    Bugs are classified by priority (Blocker, Critical, majori, minor, trivial)
+
+    Not always easy to manage priority between bugs and stories
+
+    Some other monitoring/alerting tools
+
+    KIBANA, Nagios, Munin
+
+    \subsection{Tools}
+
+    \subsubsection{We need tools to support our methodology}
+
+    On a single Git project, developers can work simultaneously on stories, a
+    release candidate may exist and the production code needs to stay stable.
+
+    $\Rightarrow$ We use the Git Flow model to address that mess.
+
+    A release (candidate) contains many applications that need
+
+    \subsubsection{Yet Another Deployment Application (YADA)}
+
+    We develop YADA to help us deploy release candidate and release (+- 40 applications)
+
+    \begin{itemize}
+        \item List projects that must be released
+        \item Deploy and Create automatically RC branch for these projects
+        \item Merge into RC branch into develop and master
+        \item Deploy project (one by one)
+    \end{itemize}
+
+    But it grows, now it's also:
+
+    \begin{itemize}
+        \item Check properties and ressources (connections,\ldots)
+        \item Puppet Tool (Server configuration --- db, users, tomcat,\ldots)
+    \end{itemize}
+
+    puppet
+
+    \subsection{Testing}
+
+    \subsubsection{Testing is a priority}
+
+    A bug in production is absolutely to avoid!
+
+    Unit tests
+
+    In-memory integration tests
+
+    Integration tests
+
+    Product owner manual tests
+
+    Quality manager manual and regression tests
+
+    Put the release candidate ???
+
+    \subsubsection{Unit tests}
+
+    Goal: Detect programming errors quickly and repeatedly
+
+    Advantages:
+
+    \begin{itemize}
+        \item Tests the contract of a method
+        \item Cheap and quick, good candidate to test limit and error cases
+        \item The combination of unit tests validates a functional story
+    \end{itemize}
+
+    Drawbacks:
+    \begin{itemize}
+        \item Hard to write a test independent of other methods
+        \item Doesn't catch configuration errors
+        \item Hard to test everything (DAOs!)
+    \end{itemize}
+
+    \subsubsection{In-memory integration tests}
+
+    Goal: Test an integrated functionality quickly
+
+    Advantages:
+    \begin{itemize}
+        \item Quick to execute
+        \item Detects some configurations errors
+        \item Detects some errors on DAOs
+    \end{itemize}
+
+    Drawbacks:
+    \begin{itemize}
+        \item Configuration is fake, not always representative of the reality
+        \item Usage of H2 ???
+        \item \ldots
+    \end{itemize}
+
+    \subsubsection{Integration tests}
+
+    Goal: Test thoroughly an integrated functionality
+
+    Advantages:
+    \begin{itemize}
+        \item Runs on a real instance of Actito (BUILD, STABLEDEV)
+        \item Helps to detect broken functionlities
+        \item Runs every night using Jenkins
+    \end{itemize}
+
+    Drawbacks:
+    \begin{itemize}
+        \item Very slow (about 10 hours for Actito Core)
+        \item Timeout exceptions
+        \item Instability of the BUILD environment
+        \item Initial cost of programming the testing environment
+    \end{itemize}
+
+    \subsubsection{Manual tests}
+
+    Goal: Find bugs that were not found automatically
+
+    Advantadges:
+    \begin{itemize}
+        \item It is nearby impossible to write automatic tests for everything
+        \item Find interface and browser compatibility bugs
+        \item Can detect performance and usability problems
+    \end{itemize}
+
+    Drawbacks:
+    \begin{itemize}
+        \item Requires a lot of man power
+        \item Doesn't find everything
+        \item Regression tests are hard to perform
+    \end{itemize}
+
+    \section{Questions}
+
+    Validation tools? Coding style?
+\end{document}
