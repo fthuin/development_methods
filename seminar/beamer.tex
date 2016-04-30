@@ -184,6 +184,24 @@
     domain-dependent. This narrows the potential applicability of
     reuse-in-the-large.
     \end{block}
+    
+    \begin{itemize}
+
+    \item Reuse-in-the-large is \textbf{difficult} 
+    \begin{itemize}
+        \item[\alert{because}] need component connection across
+            application domain
+        \item[\alert{but}] within a specific domain it's easy
+    \end{itemize}
+
+    \item \textit{One-size-fits-all} tools is always a believe of latter
+    people  
+
+        $\Rightarrow$ They are wrong to thinks that construction of
+        software are the same for all domain
+
+        \end{itemize}
+
 \end{frame}
 
 \subsection{Fact 18}
@@ -195,6 +213,49 @@
     reusable component should be tried out in three different applications
     before it will be sufficiently general to accept into a reuse library.
     \end{block}
+
+    \begin{itemize}
+        \item[$\Rightarrow$] Couple of rules of thumb
+
+        \item[(a)] Reusable component (RC) need: 
+            \begin{enumerate}
+                \item Find the "general problem"
+                \item Build the RC such at the general and specific is
+                    solved by the same way
+                \item Find a "general testing approach"
+            \end{enumerate}
+
+            $\rightarrow$  3 come from knowledgeable reuse expert
+
+        \item[(b)] arbitrary (magical?) number which is more "at
+            least" three times $\Rightarrow$ implies minimal reusability 
+    \end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+    \frametitle{Fact 18}
+    \begin{block}{Fact}
+    There are two \enquote{rules of three} in reuse: (a) It is three times as
+    difficult to build reusable components as single use components, and (b) a
+    reusable component should be tried out in three different applications
+    before it will be sufficiently general to accept into a reuse library.
+    \end{block}
+
+
+    \begin{itemize}
+
+        \item Everyone acknowledge that RC take more time: more think,
+            more verification.
+
+        \item Number three is accepted:
+            \begin{itemize}
+                \item[\alert{because}] it's a rules of thumb 
+            \item[\alert{anyone}] has the conviction that it's the exact number and
+            that it MUST NEVER CHANGE
+            \end{itemize}
+    \end{itemize}
 \end{frame}
 
 \subsection{Fact 19}
@@ -205,7 +266,85 @@
     25 percent of a component is to be revised, it is more efficient and
     effective to rewrite it from scratch.
     \end{block}
+
+    Hard to have reuse-in-the-large: why not modify component?
+    %to fit the problem at hand? 
+
+    \begin{enumerate}
+        \item Software design = framework + philosophy 
+
+            $\rightarrow$ modification = understand
+            framework and accepts philosophy
+
+        \item Design envelop constraint problem that not fit in the
+            envelope
+
+        \item Need to "comprehending the existing solution"
+
+            $\rightarrow$ programmer who originally built the solution
+            may find it difficult to modify some months later.
+
+        \item[$\Rightarrow$] Documentation is the solution to these
+            problem but:
+            \begin{itemize}
+                    \item Documentation is for almost NIL
+                    \item If there is documentation he is not update on
+                        modification
+            \end{itemize}
+
+            $\rightarrow$ No maintenance documentation at the end
+    \end{enumerate}
+
 \end{frame}
+
+\begin{frame}
+    \frametitle{Fact 19}
+    \begin{block}{Fact}
+    Modification of reused code is particularly error-prone. If more than 20 to
+    25 percent of a component is to be revised, it is more efficient and
+    effective to rewrite it from scratch.
+    \end{block}
+
+    Easy to accept if accept \textit{"software products are difficult to
+    build and maintain"}
+    \begin{itemize}
+        \item[$\Rightarrow$] People who don't accept this have
+            \begin{itemize}
+                \item Never see complicated software solution 
+                \item As play with toy problems only
+                \item Only exposed to software through literacy
+                    course with complicated software such as 
+                    "Hello world"
+            \end{itemize}
+
+            For those people, let them do shit.
+    \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Fact 19}
+    \begin{block}{Fact}
+    Modification of reused code is particularly error-prone. If more than 20 to
+    25 percent of a component is to be revised, it is more efficient and
+    effective to rewrite it from scratch.
+    \end{block}
+
+    Corollary with \textit{"It is almost always a mistake to modify packaged,
+    vendor-produced software systems."}
+
+    \begin{itemize}
+        \item Many different release (added functionality, solve problem)
+
+            \begin{itemize}
+                \item[\alert{IF}] Approach review \alert{THEN} old modification remake
+                \item[\alert{SO}] Financial cost + moral cost
+            \end{itemize}
+
+    \end{itemize}
+\end{frame}
+
 
 \subsection{Fact 20}
 \begin{frame}
@@ -213,6 +352,23 @@
     \begin{block}{Fact}
     Design pattern reuse is one solution to the problems inherent in code reuse.
     \end{block}
+
+    Reusing code Vs Reusing design = \textbf{design pattern}
+
+    \begin{itemize}
+        \item It's a description of a problem and a solution
+            (When apply and the consequences)
+        \item More conceptual and abstract than code itself
+
+        \item[Note]: emerge from practice not theory
+    \end{itemize}
+
+    Adopted by practitioners AND academics but difficult to measure the
+    impact of this new work on practice.
+
+    $\Rightarrow$  Design patterns represent one of the most unequivocally satisfying,
+    least forgotten, truths of the software field.
+
 \end{frame}
 
 \end{document}
